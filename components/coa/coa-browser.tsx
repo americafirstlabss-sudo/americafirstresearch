@@ -70,10 +70,12 @@ export function CoaBrowser({ entries }: { entries: CoaEntry[] }) {
               className="h-12 w-full rounded-full border border-graphite/10 bg-white/90 pl-11 pr-4 text-sm text-platinum outline-none placeholder:text-platinum/35"
             />
           </div>
-          <FilterSelect value={productFilter} onChange={setProductFilter} options={productOptions} label="Product Name" />
-          <FilterSelect value={batchFilter} onChange={setBatchFilter} options={batchOptions} label="Batch Number" />
-          <FilterSelect value={dateFilter} onChange={setDateFilter} options={dateOptions} label="Date" />
-          <FilterSelect value={sortOrder} onChange={setSortOrder} options={["newest", "oldest"]} label="Sort" />
+          <div className="hidden lg:contents">
+            <FilterSelect value={productFilter} onChange={setProductFilter} options={productOptions} label="Product Name" />
+            <FilterSelect value={batchFilter} onChange={setBatchFilter} options={batchOptions} label="Batch Number" />
+            <FilterSelect value={dateFilter} onChange={setDateFilter} options={dateOptions} label="Date" />
+            <FilterSelect value={sortOrder} onChange={setSortOrder} options={["newest", "oldest"]} label="Sort" />
+          </div>
         </div>
       </div>
 
