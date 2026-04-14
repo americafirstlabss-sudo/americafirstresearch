@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcane Peptides</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased selection:bg-white/20 selection:text-white flex flex-col min-h-screen text-neutral-200 font-['Inter'] bg-neutral-950">
+  <header class="fixed top-0 w-full z-50 border-b border-white/5 bg-neutral-950/70 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="#" class="text-xl font-semibold tracking-tighter text-white">AP</a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="#" class="text-sm font-medium text-neutral-400 hover:text-white transition-colors">Products</a>
+          <a href="#" class="text-sm font-medium text-neutral-400 hover:text-white transition-colors">Lab Reports</a>
+          <a href="#" class="text-sm font-medium text-neutral-400 hover:text-white transition-colors">Protocol</a>
+          <a href="#" class="text-sm font-medium text-neutral-400 hover:text-white transition-colors">About</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="text-neutral-400 hover:text-white transition-colors flex items-center justify-center">
+          <iconify-icon icon="solar:magnifer-linear" width="20" stroke-width="1.5"></iconify-icon>
+        </button>
+        <button class="text-neutral-400 hover:text-white transition-colors flex items-center justify-center">
+          <iconify-icon icon="solar:user-linear" width="20" stroke-width="1.5"></iconify-icon>
+        </button>
+        <button class="text-neutral-400 hover:text-white transition-colors flex items-center justify-center relative" onclick="toggleCart(true)">
+          <iconify-icon icon="solar:cart-large-2-linear" width="20" stroke-width="1.5"></iconify-icon>
+          <span id="cartCount" class="absolute -top-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-white text-[0.5rem] font-medium text-black">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-white/[0.03] blur-[100px] rounded-full pointer-events-none"></div>
+
+      <div class="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 mb-8">
+          <span class="flex h-2 w-2 rounded-full bg-green-500"></span>
+          <span class="text-xs font-medium text-neutral-300">Latest third-party tests published</span>
+        </div>
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tighter text-white leading-[1.1]">
+          Research Grade <br class="hidden sm:block"> Synthetic Peptides
+        </h1>
+        <p class="mt-6 text-base md:text-lg text-neutral-400 max-w-2xl font-normal leading-relaxed">
+          Synthesized for maximum purity. Rigorously analyzed via HPLC and MS to guarantee &gt;99% structural integrity for independent research applications.
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row items-center gap-4">
+          <a href="#products" class="sm:w-auto inline-flex items-center justify-center hover:bg-neutral-200 transition-colors text-sm font-medium text-black bg-white w-full h-11 rounded-full px-6">
+            Explore Catalog
+          </a>
+          <a href="#" class="w-full sm:w-auto h-11 px-6 inline-flex items-center justify-center rounded-full border border-white/10 bg-transparent text-white text-sm font-medium hover:bg-white/5 transition-colors gap-2">
+            View Analytics <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 border-y border-white/5 bg-white/[0.01]">
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-white/5">
+        <div class="flex items-start gap-4 pt-4 md:pt-0 md:px-8 first:px-0 first:pt-0">
+          <div class="flex-shrink-0 h-10 w-10 rounded-full border border-white/10 flex items-center justify-center bg-neutral-900 text-white">
+            <iconify-icon icon="solar:shield-check-linear" width="20" stroke-width="1.5"></iconify-icon>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-white">Verified Purity</h3>
+            <p class="mt-1 text-xs text-neutral-500 leading-relaxed">Every batch is independently tested to ensure &gt;99% purity before release.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 pt-8 md:pt-0 md:px-8">
+          <div class="flex-shrink-0 h-10 w-10 rounded-full border border-white/10 flex items-center justify-center bg-neutral-900 text-white">
+            <iconify-icon icon="solar:test-tube-linear" width="20" stroke-width="1.5"></iconify-icon>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-white">US Synthesis</h3>
+            <p class="mt-1 text-xs text-neutral-500 leading-relaxed">Compounded in stateside facilities adhering to strict quality control protocols.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 pt-8 md:pt-0 md:px-8">
+          <div class="flex-shrink-0 h-10 w-10 rounded-full border border-white/10 flex items-center justify-center bg-neutral-900 text-white">
+            <iconify-icon icon="solar:box-linear" width="20" stroke-width="1.5"></iconify-icon>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-white">Cold Chain Logistics</h3>
+            <p class="mt-1 text-xs text-neutral-500 leading-relaxed">Temperature-controlled packaging ensures stability during transit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="products" class="py-24 px-6 max-w-7xl mx-auto">
+      <div class="flex items-end justify-between mb-12">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-semibold tracking-tight text-white">Featured Compounds</h2>
+          <p class="text-sm text-neutral-400 mt-2">Loaded from Supabase.</p>
+        </div>
+        <a href="#" class="hidden sm:inline-flex text-sm font-medium text-white items-center gap-1 hover:text-neutral-300 transition-colors">
+          View all <iconify-icon icon="solar:arrow-right-linear" width="16" stroke-width="1.5"></iconify-icon>
+        </a>
+      </div>
+
+      <div id="productStatus" class="mb-6 text-sm text-neutral-500">Loading products...</div>
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </section>
+
+    <section class="py-24 border-y border-white/5 bg-neutral-900/30">
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-semibold tracking-tight text-white mb-6">Transparency in Analysis</h2>
+          <p class="text-sm text-neutral-400 mb-6 leading-relaxed">
+            We believe research requires absolute certainty. That is why every single batch of our peptides undergoes rigorous third-party High-Performance Liquid Chromatography (HPLC) and Mass Spectrometry (MS) testing.
+          </p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-linear" width="18" class="text-neutral-300" stroke-width="1.5"></iconify-icon>
+              <span class="text-sm text-neutral-300">Publicly accessible Certificates of Analysis (COAs).</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-linear" width="18" class="text-neutral-300" stroke-width="1.5"></iconify-icon>
+              <span class="text-sm text-neutral-300">Tested for purity, net content, and endotoxins.</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <iconify-icon icon="solar:check-circle-linear" width="18" class="text-neutral-300" stroke-width="1.5"></iconify-icon>
+              <span class="text-sm text-neutral-300">Blind testing by ISO-accredited laboratories.</span>
+            </li>
+          </ul>
+          <a href="#" class="h-10 px-5 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-white text-sm font-medium hover:bg-white/10 transition-colors">
+            Read Our Methodology
+          </a>
+        </div>
+        <div class="aspect-square rounded-2xl border border-white/5 bg-neutral-900 flex flex-col items-center justify-center p-8 relative overflow-hidden">
+          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/[0.05] via-transparent to-transparent"></div>
+          <iconify-icon icon="solar:document-text-linear" width="64" class="text-neutral-800 mb-6" stroke-width="1"></iconify-icon>
+          <div class="w-full max-w-xs space-y-3 relative z-10">
+            <div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full w-[99.2%] bg-neutral-300 rounded-full"></div>
+            </div>
+            <div class="flex justify-between text-xs font-medium">
+              <span class="text-neutral-500">Purity Target</span>
+              <span class="text-white">99.2%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="cartDrawer" class="fixed inset-0 z-[60] hidden">
+    <div class="absolute inset-0 bg-black/70" onclick="toggleCart(false)"></div>
+    <aside class="absolute right-0 top-0 h-full w-full max-w-md border-l border-white/10 bg-neutral-950 p-6 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-neutral-500">Checkout</p>
+          <h2 class="mt-2 text-2xl font-semibold text-white">Cart</h2>
+        </div>
+        <button class="rounded-full border border-white/10 px-3 py-1 text-sm text-neutral-300 hover:text-white" onclick="toggleCart(false)">Close</button>
+      </div>
+
+      <div id="cartItems" class="mt-6 space-y-4"></div>
+      <p id="cartEmptyState" class="mt-6 text-sm text-neutral-500">Your cart is empty.</p>
+
+      <div class="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-neutral-400">Subtotal</span>
+          <span id="cartSubtotal" class="font-medium text-white">$0</span>
+        </div>
+      </div>
+
+      <form id="checkoutForm" class="mt-6 space-y-3">
+        <input id="checkoutName" type="text" placeholder="Full name" class="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-white/30" required>
+        <input id="checkoutEmail" type="email" placeholder="Email address" class="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-white/30" required>
+        <input id="checkoutPhone" type="tel" placeholder="Phone number" class="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-white/30">
+        <textarea id="checkoutNotes" rows="4" placeholder="Order notes" class="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-white/30"></textarea>
+        <button type="submit" class="w-full rounded-full bg-white py-3 font-medium text-black transition-colors hover:bg-neutral-200">
+          Submit Order
+        </button>
+      </form>
+
+      <p id="checkoutStatus" class="mt-3 text-sm text-neutral-500"></p>
+    </aside>
+  </div>
+
+  <footer class="bg-neutral-950 pt-20 pb-10 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div class="md:col-span-1">
+          <a href="#" class="text-xl font-semibold tracking-tighter text-white inline-block mb-4">AP</a>
+          <p class="text-xs text-neutral-500 leading-relaxed max-w-xs">
+            Providing researchers with the highest purity synthetic peptides. Intended strictly for laboratory research use only.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-medium text-white mb-4">Catalog</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors">All Peptides</a></li>
+            <li><a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors">Blends</a></li>
+            <li><a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors">New Arrivals</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-medium text-white mb-4">Information</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors">Lab Results</a></li>
+            <li><a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors">FAQ</a></li>
+            <li><a href="#" class="text-xs text-neutral-400 hover:text-white transition-colors">Shipping Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-medium text-white mb-4">Stay Updated</h4>
+          <p class="text-xs text-neutral-500 mb-4">Subscribe for updates on new compounds and restocks.</p>
+          <form id="subscribeForm" class="flex gap-2">
+            <input id="subscribeEmail" type="email" placeholder="Email address" class="w-full bg-neutral-900 border border-white/10 rounded-lg px-4 py-2 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-white/30 transition-colors" required>
+            <button type="submit" class="h-10 px-4 rounded-lg bg-white text-black text-xs font-medium hover:bg-neutral-200 transition-colors">
+              Subscribe
+            </button>
+          </form>
+          <p id="subscribeStatus" class="mt-3 text-xs text-neutral-500"></p>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-neutral-600">
+          &copy; 2024 Arcane Peptides. All rights reserved. Not for human consumption.
+        </p>
+        <div class="flex gap-4">
+          <a href="#" class="text-xs text-neutral-600 hover:text-neutral-400 transition-colors">Terms of Service</a>
+          <a href="#" class="text-xs text-neutral-600 hover:text-neutral-400 transition-colors">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const SUPABASE_URL = 'https://qvzavbjhfbovsxtcixld.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2emF2YmpoZmJvdnN4dGNpeGxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTgxMTYsImV4cCI6MjA5MTU5NDExNn0.Rb57P6zGliwk5MVZsBirplw8SVIWbZQhEPxtd5rGK6I';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let cart = JSON.parse(localStorage.getItem('afl_cart') || '[]');
+
+    function formatCurrency(value) {
+      return '$' + Number(value || 0).toFixed(2);
+    }
+
+    function updateCartCount() {
+      const countEl = document.getElementById('cartCount');
+      if (!countEl) return;
+
+      let totalQty = 0;
+      cart.forEach((item) => {
+        totalQty += item.qty;
+      });
+
+      countEl.textContent = totalQty;
+    }
+
+    function saveCart() {
+      localStorage.setItem('afl_cart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    function addToCart(name, price, image) {
+      const existing = cart.find((item) => item.name === name);
+
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ name, price, image, qty: 1 });
+      }
+
+      saveCart();
+      renderCartDrawer();
+      toggleCart(true);
+      alert(name + ' added to cart');
+    }
+
+    function removeFromCart(name) {
+      cart = cart.filter((item) => item.name !== name);
+      saveCart();
+      renderCartDrawer();
+    }
+
+    function changeQuantity(name, nextQty) {
+      if (nextQty <= 0) {
+        removeFromCart(name);
+        return;
+      }
+
+      cart = cart.map((item) => item.name === name ? { ...item, qty: nextQty } : item);
+      saveCart();
+      renderCartDrawer();
+    }
+
+    function getCartSubtotal() {
+      return cart.reduce((sum, item) => sum + (Number(item.price) * Number(item.qty)), 0);
+    }
+
+    function renderCartDrawer() {
+      const cartItems = document.getElementById('cartItems');
+      const cartEmptyState = document.getElementById('cartEmptyState');
+      const cartSubtotal = document.getElementById('cartSubtotal');
+
+      if (!cartItems || !cartEmptyState || !cartSubtotal) return;
+
+      cartSubtotal.textContent = formatCurrency(getCartSubtotal());
+
+      if (!cart.length) {
+        cartItems.innerHTML = '';
+        cartEmptyState.classList.remove('hidden');
+        return;
+      }
+
+      cartEmptyState.classList.add('hidden');
+      cartItems.innerHTML = cart.map((item) => `
+        <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <div class="flex gap-4">
+            <img src="${item.image}" alt="${item.name}" class="h-20 w-20 rounded-xl object-cover">
+            <div class="min-w-0 flex-1">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="text-sm font-medium text-white">${item.name}</h3>
+                  <p class="mt-1 text-xs text-neutral-500">${formatCurrency(item.price)} each</p>
+                </div>
+                <button class="text-xs text-neutral-500 hover:text-white" onclick="removeFromCart('${String(item.name).replace(/'/g, "\\'")}')">Remove</button>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="inline-flex items-center rounded-full border border-white/10">
+                  <button class="px-3 py-1 text-sm text-neutral-300 hover:text-white" onclick="changeQuantity('${String(item.name).replace(/'/g, "\\'")}', ${item.qty - 1})">-</button>
+                  <span class="px-3 py-1 text-sm text-white">${item.qty}</span>
+                  <button class="px-3 py-1 text-sm text-neutral-300 hover:text-white" onclick="changeQuantity('${String(item.name).replace(/'/g, "\\'")}', ${item.qty + 1})">+</button>
+                </div>
+                <span class="text-sm font-medium text-white">${formatCurrency(Number(item.price) * Number(item.qty))}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleCart(forceOpen) {
+      const drawer = document.getElementById('cartDrawer');
+      if (!drawer) return;
+
+      const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : drawer.classList.contains('hidden');
+      drawer.classList.toggle('hidden', !shouldOpen);
+      if (shouldOpen) {
+        renderCartDrawer();
+      }
+    }
+
+    function renderProducts(products) {
+      const productGrid = document.getElementById('productGrid');
+      const productStatus = document.getElementById('productStatus');
+
+      if (!productGrid || !productStatus) return;
+
+      if (!products.length) {
+        productStatus.textContent = 'No featured products found in Supabase yet.';
+        productGrid.innerHTML = '';
+        return;
+      }
+
+      productStatus.textContent = '';
+      productGrid.innerHTML = products.map((product) => `
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <img src="${product.image_url}" alt="${product.name}" class="w-full rounded-xl mb-4 aspect-square object-cover">
+          <h3 class="text-white text-lg font-semibold">${product.name}</h3>
+          <p class="text-neutral-400 mt-1">$${Number(product.price).toFixed(0)}</p>
+          <button
+            class="mt-4 w-full rounded-full bg-white text-black py-3 font-medium"
+            onclick="addToCart('${String(product.name).replace(/'/g, "\\'")}', ${Number(product.price)}, '${String(product.image_url).replace(/'/g, "\\'")}')"
+          >
+            Add to Cart
+          </button>
+        </div>
+      `).join('');
+    }
+
+    async function loadProducts() {
+      const productStatus = document.getElementById('productStatus');
+
+      const { data, error } = await supabaseClient
+        .from('products')
+        .select('id, name, price, image_url, featured, active')
+        .eq('active', true)
+        .eq('featured', true)
+        .order('id', { ascending: true });
+
+      if (error) {
+        console.error(error);
+        if (productStatus) {
+          productStatus.textContent = 'Could not load products from Supabase.';
+        }
+        return;
+      }
+
+      renderProducts(data || []);
+    }
+
+    async function subscribeEmail(event) {
+      event.preventDefault();
+
+      const emailInput = document.getElementById('subscribeEmail');
+      const status = document.getElementById('subscribeStatus');
+
+      if (!emailInput || !status) return;
+
+      status.textContent = 'Saving...';
+
+      const { error } = await supabaseClient
+        .from('subscribers')
+        .insert({
+          email: emailInput.value.trim()
+        });
+
+      if (error) {
+        console.error(error);
+        status.textContent = 'Could not save email right now.';
+        return;
+      }
+
+      status.textContent = 'Subscribed successfully.';
+      emailInput.value = '';
+    }
+
+    async function submitOrder(event) {
+      event.preventDefault();
+
+      const status = document.getElementById('checkoutStatus');
+      const checkoutForm = document.getElementById('checkoutForm');
+
+      if (!status || !checkoutForm) return;
+
+      if (!cart.length) {
+        status.textContent = 'Add at least one item before checking out.';
+        return;
+      }
+
+      const orderPayload = {
+        customer_name: document.getElementById('checkoutName')?.value?.trim() || null,
+        customer_email: document.getElementById('checkoutEmail')?.value?.trim() || null,
+        customer_phone: document.getElementById('checkoutPhone')?.value?.trim() || null,
+        notes: document.getElementById('checkoutNotes')?.value?.trim() || null,
+        status: 'new',
+        source: 'aura-build',
+        total_amount: getCartSubtotal(),
+        items: cart.map((item) => ({
+          name: item.name,
+          price: Number(item.price),
+          image: item.image,
+          qty: Number(item.qty),
+          line_total: Number(item.price) * Number(item.qty)
+        }))
+      };
+
+      status.textContent = 'Submitting order...';
+
+      const { error } = await supabaseClient
+        .from('orders')
+        .insert(orderPayload);
+
+      if (error) {
+        console.error(error);
+        status.textContent = 'Could not save order right now.';
+        return;
+      }
+
+      status.textContent = 'Order submitted successfully.';
+      cart = [];
+      saveCart();
+      renderCartDrawer();
+      checkoutForm.reset();
+      toggleCart(false);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartCount();
+      loadProducts();
+      renderCartDrawer();
+
+      const subscribeForm = document.getElementById('subscribeForm');
+      if (subscribeForm) {
+        subscribeForm.addEventListener('submit', subscribeEmail);
+      }
+
+      const checkoutForm = document.getElementById('checkoutForm');
+      if (checkoutForm) {
+        checkoutForm.addEventListener('submit', submitOrder);
+      }
+    });
+  </script>
+</body>
+</html>

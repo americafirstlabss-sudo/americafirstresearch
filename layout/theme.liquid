@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#0b1320">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    {{ content_for_header }}
+    {% if settings.enable_supabase and settings.supabase_url != blank and settings.supabase_anon_key != blank %}
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+      <script>
+        window.AURA_SUPABASE = {
+          enabled: true,
+          url: {{ settings.supabase_url | json }},
+          anonKey: {{ settings.supabase_anon_key | json }},
+          contactTable: {{ settings.supabase_contact_table | default: 'contact_submissions' | json }},
+          shop: {{ shop.permanent_domain | json }}
+        };
+      </script>
+    {% endif %}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} - tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} - Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} - {{ shop.name }}{% endunless -%}
+    </title>
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+  </head>
+  <body>
+    <a class="skip-link" href="#MainContent">Skip to content</a>
+    {% section 'site-header' %}
+    <main id="MainContent" class="site-main">
+      {{ content_for_layout }}
+    </main>
+    {% section 'site-footer' %}
+  </body>
+</html>

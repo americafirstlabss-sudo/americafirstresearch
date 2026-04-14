@@ -1,0 +1,43 @@
+<header class="site-header">
+  <div class="announcement-bar">
+    <div class="announcement-bar__track">
+      <span>{{ section.settings.announcement_one }}</span>
+      <span>{{ section.settings.announcement_two }}</span>
+      <span>{{ section.settings.announcement_three }}</span>
+      <span>{{ section.settings.announcement_one }}</span>
+      <span>{{ section.settings.announcement_two }}</span>
+      <span>{{ section.settings.announcement_three }}</span>
+    </div>
+  </div>
+  <div class="nav-shell">
+    <a class="brand-lockup" href="{{ routes.root_url }}">
+      {% if section.settings.logo != blank %}
+        {{ section.settings.logo | image_url: width: 200 | image_tag: alt: shop.name, class: 'brand-lockup__logo' }}
+      {% endif %}
+      <span class="brand-lockup__text">{{ section.settings.brand_name | default: shop.name }}</span>
+    </a>
+    <nav class="nav-menu">
+      {% for link in linklists[section.settings.menu].links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+    <div class="nav-actions">
+      <a href="{{ routes.account_url }}">Account</a>
+      <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Site header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "America First Labs" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "text", "id": "announcement_one", "label": "Announcement 1", "default": "Free shipping over $150" },
+    { "type": "text", "id": "announcement_two", "label": "Announcement 2", "default": "3rd-party tested batches" },
+    { "type": "text", "id": "announcement_three", "label": "Announcement 3", "default": "Research use only" }
+  ]
+}
+{% endschema %}

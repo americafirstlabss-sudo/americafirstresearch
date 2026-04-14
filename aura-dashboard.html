@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcane Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-neutral-950 font-['Inter'] text-neutral-100">
+  <div class="mx-auto max-w-7xl px-6 py-10">
+    <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-[0.35em] text-cyan-400/80">Supabase Admin</p>
+        <h1 class="mt-3 text-4xl font-semibold tracking-tight text-white">Orders Dashboard</h1>
+        <p class="mt-3 max-w-2xl text-sm text-neutral-400">Track incoming AuraBuild orders, revenue, and subscriber growth in one place.</p>
+      </div>
+      <div class="flex gap-3">
+        <button id="refreshButton" class="rounded-full border border-white/10 px-5 py-2 text-sm text-neutral-200 hover:bg-white/5">Refresh</button>
+        <button id="signOutButton" class="rounded-full border border-white/10 px-5 py-2 text-sm text-neutral-200 hover:bg-white/5 hidden">Sign out</button>
+      </div>
+    </div>
+
+    <section id="authCard" class="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+      <h2 class="text-xl font-semibold text-white">Admin sign in</h2>
+      <p class="mt-2 text-sm text-neutral-400">Use a magic link from Supabase Auth. Only approved admin users can view orders.</p>
+      <form id="authForm" class="mt-5 flex flex-col gap-3 sm:flex-row">
+        <input id="authEmail" type="email" placeholder="Admin email" class="w-full rounded-2xl border border-white/10 bg-neutral-900 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-cyan-400/50" required>
+        <button type="submit" class="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-black hover:bg-neutral-200">Send magic link</button>
+      </form>
+      <p id="authStatus" class="mt-3 text-sm text-neutral-500"></p>
+    </section>
+
+    <section id="dashboardContent" class="hidden">
+      <div class="grid gap-4 md:grid-cols-4">
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-5">
+          <p class="text-xs uppercase tracking-[0.25em] text-neutral-500">Orders</p>
+          <p id="metricOrders" class="mt-3 text-3xl font-semibold text-white">0</p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-5">
+          <p class="text-xs uppercase tracking-[0.25em] text-neutral-500">Revenue</p>
+          <p id="metricRevenue" class="mt-3 text-3xl font-semibold text-white">$0.00</p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-5">
+          <p class="text-xs uppercase tracking-[0.25em] text-neutral-500">Subscribers</p>
+          <p id="metricSubscribers" class="mt-3 text-3xl font-semibold text-white">0</p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-5">
+          <p class="text-xs uppercase tracking-[0.25em] text-neutral-500">New Orders</p>
+          <p id="metricNewOrders" class="mt-3 text-3xl font-semibold text-white">0</p>
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-[1.3fr_0.7fr]">
+        <section class="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-semibold text-white">Recent Orders</h2>
+              <p class="mt-1 text-sm text-neutral-500">Live data from the `orders` table.</p>
+            </div>
+          </div>
+          <div id="ordersStatus" class="mt-4 text-sm text-neutral-500">Loading orders...</div>
+          <div id="ordersList" class="mt-4 space-y-4"></div>
+        </section>
+
+        <section class="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+          <h2 class="text-xl font-semibold text-white">Subscriber Emails</h2>
+          <p class="mt-1 text-sm text-neutral-500">Latest emails captured from the storefront.</p>
+          <div id="subscribersStatus" class="mt-4 text-sm text-neutral-500">Loading subscribers...</div>
+          <div id="subscribersList" class="mt-4 space-y-3"></div>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://qvzavbjhfbovsxtcixld.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2emF2YmpoZmJvdnN4dGNpeGxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTgxMTYsImV4cCI6MjA5MTU5NDExNn0.Rb57P6zGliwk5MVZsBirplw8SVIWbZQhEPxtd5rGK6I';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function formatCurrency(value) {
+      return '$' + Number(value || 0).toFixed(2);
+    }
+
+    function setSignedInUi(isSignedIn) {
+      document.getElementById('authCard')?.classList.toggle('hidden', isSignedIn);
+      document.getElementById('dashboardContent')?.classList.toggle('hidden', !isSignedIn);
+      document.getElementById('signOutButton')?.classList.toggle('hidden', !isSignedIn);
+    }
+
+    function renderOrders(orders) {
+      const ordersList = document.getElementById('ordersList');
+      const ordersStatus = document.getElementById('ordersStatus');
+      if (!ordersList || !ordersStatus) return;
+
+      if (!orders.length) {
+        ordersStatus.textContent = 'No orders yet.';
+        ordersList.innerHTML = '';
+        return;
+      }
+
+      ordersStatus.textContent = '';
+      ordersList.innerHTML = orders.map((order) => {
+        const itemSummary = Array.isArray(order.items)
+          ? order.items.map((item) => `${item.qty}x ${item.name}`).join(', ')
+          : 'No line items';
+
+        return `
+          <article class="rounded-2xl border border-white/10 bg-neutral-900/80 p-5">
+            <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+              <div>
+                <div class="flex items-center gap-3">
+                  <h3 class="text-lg font-semibold text-white">${order.customer_name || 'Unknown customer'}</h3>
+                  <span class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-cyan-300">${order.status || 'new'}</span>
+                </div>
+                <p class="mt-2 text-sm text-neutral-400">${order.customer_email || 'No email'}${order.customer_phone ? ' - ' + order.customer_phone : ''}</p>
+                <p class="mt-3 text-sm text-neutral-500">${itemSummary}</p>
+                <p class="mt-2 text-xs text-neutral-600">${new Date(order.created_at).toLocaleString()}</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm text-neutral-500">Total</p>
+                <p class="mt-2 text-2xl font-semibold text-white">${formatCurrency(order.total_amount)}</p>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderSubscribers(subscribers) {
+      const list = document.getElementById('subscribersList');
+      const status = document.getElementById('subscribersStatus');
+      if (!list || !status) return;
+
+      if (!subscribers.length) {
+        status.textContent = 'No subscribers yet.';
+        list.innerHTML = '';
+        return;
+      }
+
+      status.textContent = '';
+      list.innerHTML = subscribers.map((subscriber) => `
+        <div class="rounded-2xl border border-white/10 bg-neutral-900/70 px-4 py-3">
+          <p class="text-sm text-white">${subscriber.email}</p>
+          <p class="mt-1 text-xs text-neutral-600">${new Date(subscriber.created_at).toLocaleString()}</p>
+        </div>
+      `).join('');
+    }
+
+    async function loadDashboard() {
+      const [{ data: orders, error: ordersError }, { data: subscribers, error: subscribersError }] = await Promise.all([
+        supabaseClient.from('orders').select('*').order('created_at', { ascending: false }).limit(25),
+        supabaseClient.from('subscribers').select('email, created_at').order('created_at', { ascending: false }).limit(20)
+      ]);
+
+      if (ordersError) {
+        document.getElementById('ordersStatus').textContent = 'Could not load orders.';
+        console.error(ordersError);
+      } else {
+        const safeOrders = orders || [];
+        renderOrders(safeOrders);
+        document.getElementById('metricOrders').textContent = safeOrders.length;
+        document.getElementById('metricRevenue').textContent = formatCurrency(safeOrders.reduce((sum, order) => sum + Number(order.total_amount || 0), 0));
+        document.getElementById('metricNewOrders').textContent = safeOrders.filter((order) => order.status === 'new').length;
+      }
+
+      if (subscribersError) {
+        document.getElementById('subscribersStatus').textContent = 'Could not load subscribers.';
+        console.error(subscribersError);
+      } else {
+        const safeSubscribers = subscribers || [];
+        renderSubscribers(safeSubscribers);
+        document.getElementById('metricSubscribers').textContent = safeSubscribers.length;
+      }
+    }
+
+    async function sendMagicLink(event) {
+      event.preventDefault();
+      const authEmail = document.getElementById('authEmail');
+      const authStatus = document.getElementById('authStatus');
+      if (!authEmail || !authStatus) return;
+
+      authStatus.textContent = 'Sending magic link...';
+      const { error } = await supabaseClient.auth.signInWithOtp({
+        email: authEmail.value.trim(),
+        options: {
+          emailRedirectTo: window.location.href
+        }
+      });
+
+      if (error) {
+        console.error(error);
+        authStatus.textContent = 'Could not send magic link.';
+        return;
+      }
+
+      authStatus.textContent = 'Magic link sent. Open it from your email on this device.';
+    }
+
+    async function restoreSession() {
+      const { data } = await supabaseClient.auth.getSession();
+      if (data.session) {
+        setSignedInUi(true);
+        loadDashboard();
+        return;
+      }
+
+      setSignedInUi(false);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('authForm')?.addEventListener('submit', sendMagicLink);
+      document.getElementById('refreshButton')?.addEventListener('click', loadDashboard);
+      document.getElementById('signOutButton')?.addEventListener('click', async () => {
+        await supabaseClient.auth.signOut();
+        setSignedInUi(false);
+      });
+
+      supabaseClient.auth.onAuthStateChange((_event, session) => {
+        if (session) {
+          setSignedInUi(true);
+          loadDashboard();
+        }
+      });
+
+      restoreSession();
+    });
+  </script>
+</body>
+</html>

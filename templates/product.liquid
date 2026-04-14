@@ -1,0 +1,35 @@
+<section class="product-page section-shell">
+  <div class="product-page__media">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: product.title, class: 'product-page__image' }}
+    {% else %}
+      <div class="product-page__image product-page__image--placeholder"></div>
+    {% endif %}
+  </div>
+  <div class="product-page__details">
+    <p class="eyebrow">Research Catalog</p>
+    <h1>{{ product.title }}</h1>
+    <div class="product-page__price">{{ product.price | money }}</div>
+    {% if product.description != blank %}
+      <div class="product-page__description rte">{{ product.description }}</div>
+    {% endif %}
+    {% form 'product', product, class: 'product-form' %}
+      {% unless product.has_only_default_variant %}
+        {% for option in product.options_with_values %}
+          <label class="product-form__label" for="Option-{{ option.position }}">{{ option.name }}</label>
+          <select id="Option-{{ option.position }}" name="options[{{ option.name | escape }}]" class="product-form__select">
+            {% for value in option.values %}
+              <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>{{ value }}</option>
+            {% endfor %}
+          </select>
+        {% endfor %}
+      {% endunless %}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <label class="product-form__label" for="Quantity">Quantity</label>
+      <input id="Quantity" class="product-form__quantity" type="number" name="quantity" value="1" min="1">
+      <button class="button button--primary" type="submit" {% unless product.available %}disabled{% endunless %}>
+        {% if product.available %}Add to cart{% else %}Sold out{% endif %}
+      </button>
+    {% endform %}
+  </div>
+</section>

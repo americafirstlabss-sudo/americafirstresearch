@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>America First Labs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-[#f3f6f8] font-['Inter'] text-slate-900 antialiased selection:bg-emerald-200 selection:text-slate-950">
+  <div class="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.12),_transparent_26%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.08),_transparent_24%),linear-gradient(180deg,_#f8fafc_0%,_#eef3f7_44%,_#e8edf2_100%)]"></div>
+  <div class="border-b border-slate-200/80 bg-white/70 px-6 py-2 text-center text-[11px] font-medium uppercase tracking-[0.24em] text-slate-500 backdrop-blur">
+    Scientific Research Use Only
+  </div>
+
+  <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+      <a href="/" class="flex items-center gap-3 text-slate-950">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-xs font-bold tracking-[0.28em] text-white">AF</span>
+        <div>
+          <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">America First</p>
+          <p class="text-base font-semibold tracking-[0.14em] text-slate-950">LABS</p>
+        </div>
+      </a>
+      <nav class="hidden items-center gap-6 md:flex">
+        <a href="/shop" class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-950">Shop</a>
+        <a href="/merch" class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-950">Merch</a>
+        <a href="#quality" class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-950">Quality Program</a>
+        <a href="/coa" class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-950">COA's</a>
+        <a href="/faq" class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-950">FAQ</a>
+        <a href="/longevity-md-consulting" class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-950">Consulting</a>
+      </nav>
+      <button class="relative flex items-center justify-center text-slate-500 transition-colors hover:text-slate-950" onclick="toggleCart(true)">
+        <iconify-icon icon="solar:cart-large-2-linear" width="20" stroke-width="1.5"></iconify-icon>
+        <span id="cartCount" class="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-emerald-500 px-1 text-[0.55rem] font-semibold text-white">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <section class="px-6 pb-16 pt-16 md:pb-24 md:pt-24">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <p class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-600 shadow-sm">
+            <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+            3rd Party Tested
+          </p>
+          <h1 class="mt-8 max-w-5xl text-5xl font-extrabold leading-[0.95] tracking-[-0.06em] text-slate-950 md:text-7xl">
+            The Leader Of Peptides
+          </h1>
+          <p class="mt-6 max-w-3xl text-base leading-8 text-slate-600 md:text-lg">
+            America First Labs specializes in the synthesis of highly purified peptides, proteins, and amino acid derivatives for scientific research and development.
+          </p>
+          <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+            <a href="/shop" class="inline-flex h-12 items-center justify-center rounded-full bg-slate-950 px-7 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-slate-800">
+              See Catalog
+            </a>
+            <a href="#quality" class="inline-flex h-12 items-center justify-center rounded-full border border-slate-300 bg-white px-7 text-sm font-semibold uppercase tracking-[0.2em] text-slate-700 transition hover:border-slate-400 hover:text-slate-950">
+              Quality Program
+            </a>
+          </div>
+          <div class="mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
+            <div class="rounded-3xl border border-slate-200 bg-white/90 p-5 shadow-sm">
+              <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Verified</p>
+              <p class="mt-3 text-2xl font-semibold text-slate-950">3rd Party Tested</p>
+            </div>
+            <div class="rounded-3xl border border-slate-200 bg-white/90 p-5 shadow-sm">
+              <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Shipping</p>
+              <p class="mt-3 text-2xl font-semibold text-slate-950">Free Over $200</p>
+            </div>
+            <div class="rounded-3xl border border-slate-200 bg-white/90 p-5 shadow-sm">
+              <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Use</p>
+              <p class="mt-3 text-2xl font-semibold text-slate-950">Research Only</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="absolute inset-0 rounded-[2rem] bg-emerald-500/10 blur-3xl"></div>
+          <div class="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-[0_20px_80px_rgba(15,23,42,0.10)]">
+            <div class="grid gap-4 sm:grid-cols-3">
+              <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
+                <div class="aspect-[3/4] rounded-[1.25rem] bg-[linear-gradient(180deg,_#dde6ec,_#f8fafc)]"></div>
+                <p class="mt-4 text-sm font-semibold text-slate-950">GHK-Cu bottle</p>
+              </div>
+              <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
+                <div class="aspect-[3/4] rounded-[1.25rem] bg-[linear-gradient(180deg,_#d9e3eb,_#f8fafc)]"></div>
+                <p class="mt-4 text-sm font-semibold text-slate-950">BPC-157 bottle</p>
+              </div>
+              <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
+                <div class="aspect-[3/4] rounded-[1.25rem] bg-[linear-gradient(180deg,_#d4e0ea,_#f8fafc)]"></div>
+                <p class="mt-4 text-sm font-semibold text-slate-950">Ipamorelin bottle</p>
+              </div>
+            </div>
+            <div class="mt-6 rounded-[1.5rem] border border-slate-200 bg-slate-950 p-6">
+              <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Research Systems</p>
+              <p class="mt-3 text-2xl font-semibold text-white">Purity-focused process from synthesis to delivery.</p>
+              <p class="mt-3 text-sm leading-7 text-slate-300">Built for scientific research and development with cleaner presentation, stronger hierarchy, and clear trust signals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-slate-200 bg-white/60 px-6 py-5 backdrop-blur">
+      <div class="mx-auto grid max-w-7xl gap-4 text-center sm:grid-cols-3 lg:text-left">
+        <div class="rounded-2xl border border-slate-200 bg-white px-4 py-4">
+          <p class="text-sm font-semibold text-slate-950">Third Party Verified</p>
+          <p class="mt-2 text-sm text-slate-600">Independently tested batch by batch with traceable Certificates of Analysis for every release.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white px-4 py-4">
+          <p class="text-sm font-semibold text-slate-950">Fast, Reliable Shipping</p>
+          <p class="mt-2 text-sm text-slate-600">Orders placed before 12 PM CST Monday through Friday ship the same day for faster delivery.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white px-4 py-4">
+          <p class="text-sm font-semibold text-slate-950">Dedicated Customer Support</p>
+          <p class="mt-2 text-sm text-slate-600">Knowledgeable support is available during the week with extended weekend availability.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 py-24">
+      <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p class="text-xs uppercase tracking-[0.28em] text-emerald-700/70">Scientific Research Use</p>
+          <h2 class="mt-3 text-4xl font-semibold text-slate-950 md:text-5xl">Buy Peptides for Scientific Research and Development</h2>
+        </div>
+        <div>
+          <p class="text-base leading-8 text-slate-600">
+            America First Labs employs state-of-the-art automated and manual peptide synthesizers, along with advanced solution and solid-phase peptide synthetic technology, to deliver high quality peptides and proteins with a purity-focused process.
+          </p>
+          <p class="mt-5 text-base leading-8 text-slate-600">
+            From synthesis through packaging and delivery, each stage follows strict quality control standards. Comprehensive testing in the in-house analytical laboratory verifies sequential fingerprinting with precision and consistency before products reach customers.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="catalog" class="border-y border-slate-200 bg-white px-6 py-24">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.28em] text-emerald-700/70">Best Sellers</p>
+            <h2 class="mt-3 text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">Best Sellers</h2>
+            <p id="productStatus" class="mt-3 text-sm text-slate-500">Loading products...</p>
+          </div>
+          <div class="max-w-md text-sm leading-7 text-slate-500">
+            Best-selling compounds are surfaced here automatically from your product catalog so the homepage stays current.
+          </div>
+        </div>
+        <div id="productGrid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
+      </div>
+    </section>
+
+    <section id="quality" class="mx-auto max-w-7xl px-6 py-24">
+      <div class="grid gap-10 lg:grid-cols-[0.92fr_1.08fr]">
+        <div>
+          <p class="text-xs uppercase tracking-[0.28em] text-emerald-700/70">Quality Assurance Program</p>
+          <h2 class="mt-3 text-4xl font-semibold text-slate-950 md:text-5xl">America First Labs Quality Assurance Program</h2>
+          <p class="mt-5 text-base leading-8 text-slate-600">
+            At America First Labs, quality is the standard. The quality assurance program reflects a commitment to consistent purity, precision, and reliability across every research product in the catalog.
+          </p>
+          <a href="/coa" class="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-slate-950 px-7 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-slate-800">
+            View COA Library
+          </a>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2">
+          <div class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <iconify-icon icon="solar:document-text-linear" width="28" class="text-emerald-600"></iconify-icon>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">Transparency</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Each batch is benchmarked before release and paired with lab documentation.</p>
+          </div>
+          <div class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <iconify-icon icon="solar:shield-check-linear" width="28" class="text-emerald-600"></iconify-icon>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">Verification</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Testing standards and quality initiatives are designed to keep every batch accountable.</p>
+          </div>
+          <div class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm md:col-span-2">
+            <iconify-icon icon="solar:test-tube-minimalistic-linear" width="28" class="text-emerald-600"></iconify-icon>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">Purity-Focused Standards</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">From synthesis to release, products are managed under structured quality control standards with precision-focused review and traceable batch documentation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-slate-200 bg-white/60 px-6 py-24">
+      <div class="mx-auto max-w-7xl">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.28em] text-emerald-700/70">Explore</p>
+            <h2 class="mt-3 text-4xl font-semibold text-slate-950 md:text-5xl">Explore</h2>
+          </div>
+        </div>
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+          <a href="#catalog" class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Catalog</p>
+            <h3 class="mt-4 text-2xl font-semibold text-slate-950">Best Sellers</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Go straight into the highest-demand research products in the catalog.</p>
+          </a>
+          <a href="/merch" class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Merch</p>
+            <h3 class="mt-4 text-2xl font-semibold text-slate-950">Lab Gear</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Browse America First Labs apparel, accessories, and branded essentials in a separate merch collection.</p>
+          </a>
+          <a href="/coa" class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Verification</p>
+            <h3 class="mt-4 text-2xl font-semibold text-slate-950">COA's</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Review batch records, verification language, and certificate structure.</p>
+          </a>
+          <a href="/longevity-md-consulting" class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg md:col-span-3">
+            <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Consulting</p>
+            <h3 class="mt-4 text-2xl font-semibold text-slate-950">Longevity MD Consulting</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Physician-guided wellness and longevity support with a clear $99 entry consultation path.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 py-24">
+      <div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+        <div>
+          <p class="text-xs uppercase tracking-[0.28em] text-emerald-700/70">Longevity MD Consulting</p>
+          <h2 class="mt-3 text-4xl font-semibold text-slate-950 md:text-5xl">Physician-Guided Wellness and Longevity Support</h2>
+          <p class="mt-5 max-w-2xl text-base leading-8 text-slate-600">
+            Connect with America First Labs for one-on-one consulting focused on recovery, hormone support, performance, metabolic health, and long-term longevity strategy.
+          </p>
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href="/longevity-md-consulting" class="inline-flex h-12 items-center justify-center rounded-full bg-slate-950 px-7 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-slate-800">
+              Book a $99 Consultation
+            </a>
+            <a href="/longevity-md-consulting" class="inline-flex h-12 items-center justify-center rounded-full border border-slate-300 bg-white px-7 text-sm font-semibold uppercase tracking-[0.2em] text-slate-700 transition hover:border-slate-400 hover:text-slate-950">
+              View Booking Checkout
+            </a>
+          </div>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          <div class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Review</p>
+            <h3 class="mt-4 text-xl font-semibold text-slate-950">1:1 Review</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Personalized planning around your goals, symptoms, labs, and current wellness priorities.</p>
+          </div>
+          <div class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Scheduling</p>
+            <h3 class="mt-4 text-xl font-semibold text-slate-950">Weekday Booking</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Choose Monday through Friday appointment windows with integrated time-slot selection.</p>
+          </div>
+          <div class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Pricing</p>
+            <h3 class="mt-4 text-xl font-semibold text-slate-950">$99 Entry Call</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-600">Clear upfront pricing for your initial consultation request and booking review.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="cartDrawer" class="fixed inset-0 z-[60] hidden">
+    <div class="absolute inset-0 bg-black/50" onclick="toggleCart(false)"></div>
+    <aside class="absolute right-0 top-0 h-full w-full max-w-md border-l border-slate-200 bg-white p-6 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-slate-500">Checkout</p>
+          <h2 class="mt-2 text-2xl font-semibold text-slate-950">Cart</h2>
+        </div>
+        <button class="rounded-full border border-slate-300 px-3 py-1 text-sm text-slate-600 hover:text-slate-950" onclick="toggleCart(false)">Close</button>
+      </div>
+
+      <div id="cartItems" class="mt-6 space-y-4"></div>
+      <p id="cartEmptyState" class="mt-6 text-sm text-slate-500">Your cart is empty.</p>
+
+      <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-slate-500">Subtotal</span>
+          <span id="cartSubtotal" class="font-medium text-slate-950">$0</span>
+        </div>
+      </div>
+
+      <form id="checkoutForm" class="mt-6 space-y-3">
+        <input id="checkoutName" type="text" placeholder="Full name" class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500" required>
+        <input id="checkoutEmail" type="email" placeholder="Email address" class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500" required>
+        <input id="checkoutPhone" type="tel" placeholder="Phone number" class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500">
+        <textarea id="checkoutNotes" rows="4" placeholder="Order notes" class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500"></textarea>
+        <button type="submit" class="w-full rounded-full bg-slate-950 py-3 font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-slate-800">
+          Submit Order
+        </button>
+      </form>
+
+      <p id="checkoutStatus" class="mt-3 text-sm text-slate-500"></p>
+    </aside>
+  </div>
+
+  <footer class="border-t border-slate-200 bg-white/70 pb-10 pt-16">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="grid gap-12 md:grid-cols-[0.9fr_0.6fr_0.8fr]">
+        <div>
+          <a href="/" class="flex items-center gap-3 text-slate-950">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-xs font-bold tracking-[0.28em] text-white">AF</span>
+            <div>
+              <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">America First</p>
+              <p class="text-base font-semibold tracking-[0.14em] text-slate-950">LABS</p>
+            </div>
+          </a>
+          <p class="mt-5 max-w-sm text-sm leading-7 text-slate-600">America First Labs specializes in highly purified peptides, proteins, and amino acid derivatives for scientific research and development.</p>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-800">Explore</h4>
+          <div class="mt-4 space-y-3 text-sm text-slate-500">
+            <a href="/shop" class="block hover:text-slate-950">Shop</a>
+            <a href="/merch" class="block hover:text-slate-950">Merch</a>
+            <a href="/coa" class="block hover:text-slate-950">COA's</a>
+            <a href="/faq" class="block hover:text-slate-950">FAQ</a>
+            <a href="/longevity-md-consulting" class="block hover:text-slate-950">Consulting</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-800">Stay Updated</h4>
+          <form id="subscribeForm" class="mt-4 flex gap-2">
+            <input id="subscribeEmail" type="email" placeholder="Email address" class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-950 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 transition-colors" required>
+            <button type="submit" class="h-10 rounded-lg bg-slate-950 px-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-slate-800">Join</button>
+          </form>
+          <p id="subscribeStatus" class="mt-3 text-xs text-slate-500"></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const SUPABASE_URL = 'https://qvzavbjhfbovsxtcixld.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2emF2YmpoZmJvdnN4dGNpeGxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTgxMTYsImV4cCI6MjA5MTU5NDExNn0.Rb57P6zGliwk5MVZsBirplw8SVIWbZQhEPxtd5rGK6I';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let cart = JSON.parse(localStorage.getItem('afl_cart') || '[]');
+
+    function formatCurrency(value) {
+      return '$' + Number(value || 0).toFixed(2);
+    }
+
+    function updateCartCount() {
+      const countEl = document.getElementById('cartCount');
+      if (!countEl) return;
+      countEl.textContent = cart.reduce((sum, item) => sum + Number(item.qty || 0), 0);
+    }
+
+    function saveCart() {
+      localStorage.setItem('afl_cart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    function addToCart(name, price, image) {
+      const existing = cart.find((item) => item.name === name);
+      if (existing) existing.qty += 1;
+      else cart.push({ name, price, image, qty: 1 });
+      saveCart();
+      renderCartDrawer();
+      toggleCart(true);
+    }
+
+    function removeFromCart(name) {
+      cart = cart.filter((item) => item.name !== name);
+      saveCart();
+      renderCartDrawer();
+    }
+
+    function changeQuantity(name, nextQty) {
+      if (nextQty <= 0) return removeFromCart(name);
+      cart = cart.map((item) => item.name === name ? { ...item, qty: nextQty } : item);
+      saveCart();
+      renderCartDrawer();
+    }
+
+    function getCartSubtotal() {
+      return cart.reduce((sum, item) => sum + Number(item.price) * Number(item.qty), 0);
+    }
+
+    function renderCartDrawer() {
+      const cartItems = document.getElementById('cartItems');
+      const cartEmptyState = document.getElementById('cartEmptyState');
+      const cartSubtotal = document.getElementById('cartSubtotal');
+      if (!cartItems || !cartEmptyState || !cartSubtotal) return;
+
+      cartSubtotal.textContent = formatCurrency(getCartSubtotal());
+
+      if (!cart.length) {
+        cartItems.innerHTML = '';
+        cartEmptyState.classList.remove('hidden');
+        return;
+      }
+
+      cartEmptyState.classList.add('hidden');
+      cartItems.innerHTML = cart.map((item) => `
+        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+          <div class="flex gap-4">
+            <img src="${item.image}" alt="${item.name}" class="h-20 w-20 rounded-xl object-cover">
+            <div class="min-w-0 flex-1">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="text-sm font-medium text-slate-950">${item.name}</h3>
+                  <p class="mt-1 text-xs text-slate-500">${formatCurrency(item.price)} each</p>
+                </div>
+                <button class="text-xs text-slate-500 hover:text-slate-950" onclick="removeFromCart('${String(item.name).replace(/'/g, "\\'")}')">Remove</button>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="inline-flex items-center rounded-full border border-slate-300">
+                  <button class="px-3 py-1 text-sm text-slate-500 hover:text-slate-950" onclick="changeQuantity('${String(item.name).replace(/'/g, "\\'")}', ${item.qty - 1})">-</button>
+                  <span class="px-3 py-1 text-sm text-slate-950">${item.qty}</span>
+                  <button class="px-3 py-1 text-sm text-slate-500 hover:text-slate-950" onclick="changeQuantity('${String(item.name).replace(/'/g, "\\'")}', ${item.qty + 1})">+</button>
+                </div>
+                <span class="text-sm font-medium text-slate-950">${formatCurrency(Number(item.price) * Number(item.qty))}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleCart(forceOpen) {
+      const drawer = document.getElementById('cartDrawer');
+      if (!drawer) return;
+      const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : drawer.classList.contains('hidden');
+      drawer.classList.toggle('hidden', !shouldOpen);
+      if (shouldOpen) renderCartDrawer();
+    }
+
+    function renderProducts(products) {
+      const productGrid = document.getElementById('productGrid');
+      const productStatus = document.getElementById('productStatus');
+      if (!productGrid || !productStatus) return;
+
+      if (!products || !products.length) {
+        productStatus.textContent = 'No products found.';
+        productGrid.innerHTML = '';
+        return;
+      }
+
+      productStatus.textContent = '';
+
+      const priorityNames = ['Ghk-cu', 'BPC-157', 'Ipamorelin', 'CJC-1295 NO DAC'];
+      const sortedProducts = [...products].sort((a, b) => {
+        const aIndex = priorityNames.indexOf(a.name);
+        const bIndex = priorityNames.indexOf(b.name);
+        const safeA = aIndex === -1 ? 999 : aIndex;
+        const safeB = bIndex === -1 ? 999 : bIndex;
+        return safeA - safeB;
+      }).slice(0, 4);
+
+      productGrid.innerHTML = sortedProducts.map((product) => {
+        const productName = product.name || 'Product';
+        const rawPrice = Number(product.price || 0);
+        const displayPrice = rawPrice > 999 ? (rawPrice / 100).toFixed(2) : rawPrice.toFixed(2);
+        const imageUrl = product.image_url || '';
+        return `
+          <div class="rounded-[1.75rem] border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <img src="${imageUrl}" alt="${productName}" class="mb-4 aspect-square w-full rounded-[1.25rem] object-cover">
+            <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Best Seller</p>
+            <h3 class="mt-2 text-lg font-semibold text-slate-950">${productName}</h3>
+            <p class="mt-1 text-slate-500">${productName === 'Ghk-cu' || productName === 'BPC-157' ? 'From ' : ''}$${displayPrice}</p>
+            <div class="mt-4 flex gap-3">
+              <button class="flex-1 rounded-full bg-slate-950 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-slate-800"
+                onclick="addToCart('${String(productName).replace(/'/g, "\\'")}', ${Number(displayPrice)}, '${String(imageUrl).replace(/'/g, "\\'")}')">
+                Add to Cart
+              </button>
+              <a href="#catalog" class="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 transition hover:border-slate-400 hover:text-slate-950">
+                View product
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function loadProducts() {
+      const productStatus = document.getElementById('productStatus');
+      if (productStatus) productStatus.textContent = 'Loading products...';
+
+      const { data, error } = await supabaseClient.from('products').select('*').limit(24);
+      if (error) {
+        console.error(error);
+        if (productStatus) productStatus.textContent = 'Supabase error: ' + error.message;
+        return;
+      }
+
+      renderProducts(data || []);
+    }
+
+    async function subscribeEmail(event) {
+      event.preventDefault();
+      const emailInput = document.getElementById('subscribeEmail');
+      const status = document.getElementById('subscribeStatus');
+      if (!emailInput || !status) return;
+
+      status.textContent = 'Saving...';
+      const { error } = await supabaseClient.from('subscribers').insert({ email: emailInput.value.trim() });
+      if (error) {
+        console.error(error);
+        status.textContent = 'Could not save email right now.';
+        return;
+      }
+
+      status.textContent = 'Subscribed successfully.';
+      emailInput.value = '';
+    }
+
+    async function submitOrder(event) {
+      event.preventDefault();
+      const status = document.getElementById('checkoutStatus');
+      const checkoutForm = document.getElementById('checkoutForm');
+      if (!status || !checkoutForm) return;
+      if (!cart.length) {
+        status.textContent = 'Add at least one item before checking out.';
+        return;
+      }
+
+      const orderPayload = {
+        customer_name: document.getElementById('checkoutName')?.value?.trim() || null,
+        customer_email: document.getElementById('checkoutEmail')?.value?.trim() || null,
+        customer_phone: document.getElementById('checkoutPhone')?.value?.trim() || null,
+        notes: document.getElementById('checkoutNotes')?.value?.trim() || null,
+        status: 'new',
+        source: 'vercel-storefront',
+        total_amount: getCartSubtotal(),
+        items: cart.map((item) => ({
+          name: item.name,
+          price: Number(item.price),
+          image: item.image,
+          qty: Number(item.qty),
+          line_total: Number(item.price) * Number(item.qty)
+        }))
+      };
+
+      status.textContent = 'Submitting order...';
+      const { error } = await supabaseClient.from('orders').insert(orderPayload);
+      if (error) {
+        console.error(error);
+        status.textContent = 'Could not save order right now.';
+        return;
+      }
+
+      status.textContent = 'Order submitted successfully.';
+      cart = [];
+      saveCart();
+      renderCartDrawer();
+      checkoutForm.reset();
+      toggleCart(false);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartCount();
+      renderCartDrawer();
+      loadProducts();
+      document.getElementById('subscribeForm')?.addEventListener('submit', subscribeEmail);
+      document.getElementById('checkoutForm')?.addEventListener('submit', submitOrder);
+    });
+  </script>
+</body>
+</html>

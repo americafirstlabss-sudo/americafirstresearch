@@ -1,0 +1,38 @@
+<footer class="site-footer">
+  <div class="section-shell site-footer__grid">
+    <div>
+      <p class="eyebrow">America First Labs</p>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.copy }}</p>
+    </div>
+    <div>
+      <p class="eyebrow">Navigation</p>
+      <div class="footer-links">
+        {% for link in linklists[section.settings.menu].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow">Newsletter</p>
+      {% form 'customer', class: 'footer-signup' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" placeholder="Email address" required>
+        <button class="button button--primary" type="submit">Join</button>
+      {% endform %}
+      <p class="site-footer__fineprint">{{ section.settings.disclaimer }}</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Site footer",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Research compounds presented with a cleaner premium storefront." },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "Use this footer to reinforce your brand position, link important resources, and keep compliance language available without burying the shopping flow." },
+    { "type": "link_list", "id": "menu", "label": "Footer menu", "default": "footer" },
+    { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "For laboratory research use only. Update this language with your legal/compliance team before launch." }
+  ]
+}
+{% endschema %}

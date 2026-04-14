@@ -1,0 +1,19 @@
+<article class="product-card">
+  <a class="product-card__media-link" href="{{ product.url }}">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: product.title, class: 'product-card__media' }}
+    {% else %}
+      <div class="product-card__media"></div>
+    {% endif %}
+  </a>
+  <div class="product-card__body">
+    {% if product.vendor != blank %}
+      <p class="eyebrow">{{ product.vendor }}</p>
+    {% endif %}
+    <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <p class="product-card__price">
+      {% if product.price_varies %}From {% endif %}{{ product.price | money }}
+    </p>
+    <a class="button button--secondary" href="{{ product.url }}">View product</a>
+  </div>
+</article>

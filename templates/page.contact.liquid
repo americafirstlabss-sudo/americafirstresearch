@@ -1,0 +1,20 @@
+<section class="section-shell contact-page">
+  <div class="section-heading">
+    <p class="eyebrow">Contact</p>
+    <h1>{{ page.title }}</h1>
+  </div>
+  <div class="contact-grid">
+    <div class="section-copy rte">{{ page.content }}</div>
+    {% form 'contact', class: 'contact-form', id: 'ContactForm', data-supabase-contact-form: '' %}
+      {% if form.posted_successfully? %}
+        <p>Thanks, we received your message.</p>
+      {% endif %}
+      {{ form.errors | default_errors }}
+      <input type="text" name="contact[name]" placeholder="Name" required>
+      <input type="email" name="contact[email]" placeholder="Email" required>
+      <textarea name="contact[body]" rows="6" placeholder="How can we help?" required></textarea>
+      <p class="contact-form__status" data-supabase-status hidden></p>
+      <button class="button button--primary" type="submit">Send message</button>
+    {% endform %}
+  </div>
+</section>

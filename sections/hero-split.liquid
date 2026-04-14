@@ -1,0 +1,62 @@
+<section class="hero-split">
+  <div class="hero-split__backdrop"></div>
+  <div class="section-shell hero-split__grid">
+    <div class="hero-split__copy">
+      <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      <h1>{{ section.settings.heading }}</h1>
+      <div class="section-copy">{{ section.settings.copy }}</div>
+      <div class="hero-split__actions">
+        <a class="button button--primary" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label }}</a>
+        <a class="button button--secondary" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label }}</a>
+      </div>
+      <div class="hero-split__facts">
+        <div>
+          <strong>{{ section.settings.fact_one_number }}</strong>
+          <span>{{ section.settings.fact_one_label }}</span>
+        </div>
+        <div>
+          <strong>{{ section.settings.fact_two_number }}</strong>
+          <span>{{ section.settings.fact_two_label }}</span>
+        </div>
+        <div>
+          <strong>{{ section.settings.fact_three_number }}</strong>
+          <span>{{ section.settings.fact_three_label }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-split__panel">
+      {% if section.settings.hero_image != blank %}
+        {{ section.settings.hero_image | image_url: width: 1400 | image_tag: loading: 'eager', alt: section.settings.heading, class: 'hero-split__image' }}
+      {% else %}
+        <div class="hero-split__placeholder">
+          <span>Precision batches</span>
+          <span>Identity confirmed</span>
+          <span>Fast dispatch</span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero split",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Premium research compounds" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built for labs that move fast and verify everything." },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "A bold storefront for America First Labs with a cleaner premium look, stronger trust signals, and a catalog-first shopping flow." },
+    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop Catalog" },
+    { "type": "url", "id": "primary_link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "View COAs" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "text", "id": "fact_one_number", "label": "Fact 1 number", "default": "99%+" },
+    { "type": "text", "id": "fact_one_label", "label": "Fact 1 label", "default": "target purity" },
+    { "type": "text", "id": "fact_two_number", "label": "Fact 2 number", "default": "48h" },
+    { "type": "text", "id": "fact_two_label", "label": "Fact 2 label", "default": "dispatch window" },
+    { "type": "text", "id": "fact_three_number", "label": "Fact 3 number", "default": "24/7" },
+    { "type": "text", "id": "fact_three_label", "label": "Fact 3 label", "default": "support access" }
+  ],
+  "presets": [{ "name": "Hero split" }]
+}
+{% endschema %}

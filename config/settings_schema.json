@@ -1,0 +1,39 @@
+[
+  {
+    "name": "Theme settings",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Upload your logo, assign menus, connect collections, and update compliance copy before publishing."
+      },
+      {
+        "type": "header",
+        "content": "Supabase"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_supabase",
+        "label": "Enable Supabase integration",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "supabase_url",
+        "label": "Supabase project URL",
+        "info": "Example: https://your-project.supabase.co"
+      },
+      {
+        "type": "text",
+        "id": "supabase_anon_key",
+        "label": "Supabase anon public key"
+      },
+      {
+        "type": "text",
+        "id": "supabase_contact_table",
+        "label": "Contact submissions table",
+        "default": "contact_submissions",
+        "info": "Public table used for lead capture from the contact form."
+      }
+    ]
+  }
+]
