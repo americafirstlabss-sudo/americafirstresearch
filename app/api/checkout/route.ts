@@ -165,6 +165,11 @@ export async function POST(request: Request) {
   if (!response.ok || !redirectUrl) {
     return NextResponse.json(
       {
+        debug: {
+          bankfulApiUrl,
+          bankfulUsername,
+          appBaseUrl
+        },
         error:
           responseData?.errorMessage ??
           responseData?.message ??
