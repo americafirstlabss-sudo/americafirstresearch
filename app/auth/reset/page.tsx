@@ -18,9 +18,20 @@ export default function AuthResetPage() {
     async function prepareRecoverySession() {
       try {
         const supabase = createClient();
+        const { data: existingSession } = await supabase.auth.getSession();
+
+        if (existingSession.session) {
+          if (active) {
+            setIsReady(true);
+            setStatus("Enter your new password to complete the reset.");
+          }
+          return;
+        }
+
         const url = new URL(window.location.href);
         const hash = new URLSearchParams(window.location.hash.startsWith("#") ? window.location.hash.slice(1) : "");
         const code = url.searchParams.get("code");
+        const token = url.searchParams.get("token");
         const tokenHash = url.searchParams.get("token_hash");
         const type = url.searchParams.get("type");
         const accessToken = hash.get("access_token");
@@ -28,6 +39,15 @@ export default function AuthResetPage() {
 
         if (code) {
           const { error } = await supabase.auth.exchangeCodeForSession(code);
+          if (error) {
+            if (active) setStatus(error.message);
+            return;
+          }
+        } else if (token && type === "recovery") {
+          const { error } = await supabase.auth.verifyOtp({
+            type: "recovery",
+            token
+          });
           if (error) {
             if (active) setStatus(error.message);
             return;
