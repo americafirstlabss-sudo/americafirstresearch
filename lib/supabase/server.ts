@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
+import type { CookieOptions } from "@supabase/ssr";
 import { isAdminEmail } from "@/lib/auth";
 
 export async function createClient() {
@@ -14,11 +15,11 @@ export async function createClient() {
       get(name: string) {
         return cookieStore.get(name)?.value;
       },
-      set(name: string, value: string, options: Parameters<typeof cookieStore.set>[0]) {
-        cookieStore.set({ name, value, ...options });
+      set(name: string, value: string, options: CookieOptions) {
+        cookieStore.set({ name, value, ...(options ?? {}) });
       },
-      remove(name: string, options: Parameters<typeof cookieStore.set>[0]) {
-        cookieStore.set({ name, value: "", ...options });
+      remove(name: string, options: CookieOptions) {
+        cookieStore.set({ name, value: "", ...(options ?? {}) });
       }
     }
   });
@@ -35,11 +36,11 @@ export async function updateSession(request: NextRequest) {
       get(name: string) {
         return request.cookies.get(name)?.value;
       },
-      set(name: string, value: string, options: Parameters<typeof response.cookies.set>[0]) {
-        response.cookies.set({ name, value, ...options });
+      set(name: string, value: string, options: CookieOptions) {
+        response.cookies.set({ name, value, ...(options ?? {}) });
       },
-      remove(name: string, options: Parameters<typeof response.cookies.set>[0]) {
-        response.cookies.set({ name, value: "", ...options });
+      remove(name: string, options: CookieOptions) {
+        response.cookies.set({ name, value: "", ...(options ?? {}) });
       }
     }
   });
