@@ -17,8 +17,8 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#13233a]/10 bg-[rgba(251,250,246,0.88)] backdrop-blur-xl">
-      <div className="shell flex h-16 items-center justify-between gap-2 sm:h-20 sm:gap-4">
-        <Link href="/" className="min-w-0 flex-1 lg:flex-none">
+      <div className="shell relative flex h-16 items-center justify-between gap-2 sm:h-20 sm:gap-4">
+        <Link href="/" className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 sm:static sm:left-auto sm:top-auto sm:z-auto sm:translate-x-0 sm:translate-y-0">
           <BrandMark />
         </Link>
         <nav className="hidden items-center gap-7 lg:flex">
@@ -29,6 +29,9 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
+          <button type="button" onClick={() => setMobileOpen(true)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] lg:hidden sm:hidden">
+            <Menu className="h-4 w-4" />
+          </button>
           <Link href="/search" aria-label="Search site" className="hidden h-12 w-12 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:inline-flex">
             <Search className="h-5 w-5" />
           </Link>
@@ -47,7 +50,7 @@ export function SiteHeader() {
               {count}
             </span>
           </button>
-          <button type="button" onClick={() => setMobileOpen(true)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] lg:hidden sm:h-12 sm:w-12">
+          <button type="button" onClick={() => setMobileOpen(true)} className="hidden h-9 w-9 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] lg:hidden sm:inline-flex sm:h-12 sm:w-12">
             <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </div>
