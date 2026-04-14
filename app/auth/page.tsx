@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { AuthPanel } from "@/components/auth/auth-panel";
 import { createClient } from "@/lib/supabase/server";
@@ -17,7 +18,9 @@ export default async function AuthPage({
 
   return (
     <main className="shell py-16">
-      <AuthPanel />
+      <Suspense fallback={<div className="panel p-8 text-sm text-platinum/60">Loading account access...</div>}>
+        <AuthPanel />
+      </Suspense>
     </main>
   );
 }
