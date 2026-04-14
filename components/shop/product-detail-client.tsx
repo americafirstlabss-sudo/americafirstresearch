@@ -143,8 +143,8 @@ export function ProductDetailClient({ product }: { product: Product }) {
                       onClick={() => setSelectedOption(option)}
                       className={`rounded-full border px-4 py-2.5 text-sm transition duration-300 ${
                         selectedOption === option
-                          ? "border-[#b22234] bg-[linear-gradient(135deg,#8a2030,#6f88b8)] text-white shadow-[0_12px_28px_rgba(111,136,184,0.16)]"
-                          : "border-graphite/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,241,232,0.92))] text-platinum/78 hover:border-cyan hover:bg-white hover:text-platinum"
+                          ? "border-[#922030] bg-[linear-gradient(135deg,#922030,#6d1323)] text-white shadow-[0_12px_28px_rgba(146,32,48,0.18)]"
+                          : "border-[#922030]/18 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,241,232,0.92))] text-[#922030] hover:border-[#922030] hover:bg-[#922030]/6 hover:text-[#922030]"
                       }`}
                     >
                       {option}
@@ -187,11 +187,14 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 <button
                   type="button"
                   onClick={() => addItem(product, selectedOption, quantity)}
-                  className="button-primary flex-1"
+                  className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full border border-[#922030]/15 bg-[linear-gradient(135deg,#922030,#6d1323)] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-95 hover:shadow-[0_10px_30px_rgba(146,32,48,0.18)]"
                 >
                   Add to Cart
                 </button>
-                <Link href="/checkout" className="button-secondary flex-1 text-center">
+                <Link
+                  href="/checkout"
+                  className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full border border-[#922030]/20 bg-[linear-gradient(135deg,rgba(146,32,48,0.08),rgba(109,19,35,0.14))] px-6 py-3 text-center text-sm font-semibold text-[#922030] transition hover:border-[#922030] hover:bg-[linear-gradient(135deg,rgba(146,32,48,0.14),rgba(109,19,35,0.2))]"
+                >
                   Buy Now
                 </Link>
               </div>
