@@ -11,13 +11,13 @@ export async function createClient() {
 
   return createServerClient(url, key, {
     cookies: {
-      get(name) {
+      get(name: string) {
         return cookieStore.get(name)?.value;
       },
-      set(name, value, options) {
+      set(name: string, value: string, options: Parameters<typeof cookieStore.set>[0]) {
         cookieStore.set({ name, value, ...options });
       },
-      remove(name, options) {
+      remove(name: string, options: Parameters<typeof cookieStore.set>[0]) {
         cookieStore.set({ name, value: "", ...options });
       }
     }
@@ -32,13 +32,13 @@ export async function updateSession(request: NextRequest) {
 
   const supabase = createServerClient(url, key, {
     cookies: {
-      get(name) {
+      get(name: string) {
         return request.cookies.get(name)?.value;
       },
-      set(name, value, options) {
+      set(name: string, value: string, options: Parameters<typeof response.cookies.set>[0]) {
         response.cookies.set({ name, value, ...options });
       },
-      remove(name, options) {
+      remove(name: string, options: Parameters<typeof response.cookies.set>[0]) {
         response.cookies.set({ name, value: "", ...options });
       }
     }
