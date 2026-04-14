@@ -17,8 +17,8 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#13233a]/10 bg-[rgba(251,250,246,0.88)] backdrop-blur-xl">
-      <div className="shell relative flex h-20 items-center justify-between gap-2 sm:h-20 sm:gap-4">
-        <Link href="/" className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 sm:static sm:left-auto sm:top-auto sm:z-auto sm:translate-x-0 sm:translate-y-0">
+      <div className="shell flex h-20 items-center justify-between gap-3 sm:h-20 sm:gap-4">
+        <Link href="/" className="shrink-0">
           <BrandMark />
         </Link>
         <nav className="hidden items-center gap-7 lg:flex">
@@ -28,7 +28,7 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
+        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
           <button type="button" onClick={() => setMobileOpen(true)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] lg:hidden sm:hidden">
             <Menu className="h-4 w-4" />
           </button>
