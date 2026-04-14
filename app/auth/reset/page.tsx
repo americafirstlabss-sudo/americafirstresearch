@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/browser";
 
 export default function AuthResetPage() {
@@ -8,9 +8,75 @@ export default function AuthResetPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [status, setStatus] = useState("Enter your new password to complete the reset.");
   const [isSaving, setIsSaving] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+
+    async function prepareRecoverySession() {
+      try {
+        const supabase = createClient();
+        const url = new URL(window.location.href);
+        const hash = new URLSearchParams(window.location.hash.startsWith("#") ? window.location.hash.slice(1) : "");
+        const code = url.searchParams.get("code");
+        const tokenHash = url.searchParams.get("token_hash");
+        const type = url.searchParams.get("type");
+        const accessToken = hash.get("access_token");
+        const refreshToken = hash.get("refresh_token");
+
+        if (code) {
+          const { error } = await supabase.auth.exchangeCodeForSession(code);
+          if (error) {
+            if (active) setStatus(error.message);
+            return;
+          }
+        } else if (tokenHash && type === "recovery") {
+          const { error } = await supabase.auth.verifyOtp({
+            type: "recovery",
+            token_hash: tokenHash
+          });
+          if (error) {
+            if (active) setStatus(error.message);
+            return;
+          }
+        } else if (accessToken && refreshToken) {
+          const { error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken
+          });
+          if (error) {
+            if (active) setStatus(error.message);
+            return;
+          }
+        } else {
+          if (active) setStatus("This reset link is missing the recovery token. Request a new password reset email.");
+          return;
+        }
+
+        if (active) {
+          setIsReady(true);
+          setStatus("Enter your new password to complete the reset.");
+          window.history.replaceState({}, document.title, "/auth/reset");
+        }
+      } catch {
+        if (active) setStatus("Unable to validate the reset link right now.");
+      }
+    }
+
+    void prepareRecoverySession();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!isReady) {
+      setStatus("This reset link is still being prepared. Try again in a moment.");
+      return;
+    }
 
     if (password.length < 8) {
       setStatus("Password must be at least 8 characters.");
@@ -61,7 +127,7 @@ export default function AuthResetPage() {
           />
         </div>
         <button type="submit" disabled={isSaving} className="button-primary mt-6 w-full disabled:opacity-60">
-          {isSaving ? "Saving..." : "Update Password"}
+          {isSaving ? "Saving..." : isReady ? "Update Password" : "Preparing Reset Link..."}
         </button>
         <p className="mt-4 text-sm text-platinum/55">{status}</p>
       </form>
