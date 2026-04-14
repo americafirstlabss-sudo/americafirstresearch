@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
@@ -19,8 +18,6 @@ import { Product } from "@/types";
 
 export function ProductDetailClient({ product }: { product: Product }) {
   const { addItem } = useCart();
-  const gallery = product.gallery.length ? product.gallery : [product.image];
-  const [activeImage, setActiveImage] = useState(gallery[0] ?? product.image);
   const [selectedOption, setSelectedOption] = useState(product.sizeOptions[0] ?? "");
   const [quantity, setQuantity] = useState(1);
 
@@ -69,38 +66,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
   ];
 
   return (
-    <div className="grid gap-12 xl:grid-cols-[1.02fr_0.98fr]">
-      <div className="grid gap-4 lg:grid-cols-[96px_minmax(0,1fr)]">
-        <div className="order-2 flex gap-3 overflow-x-auto pb-1 lg:order-1 lg:flex-col lg:overflow-visible">
-          {gallery.map((image, index) => (
-            <button
-              key={`${image}-${index}`}
-              type="button"
-              onClick={() => setActiveImage(image)}
-              className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border bg-transparent transition duration-300 ${
-                activeImage === image
-                  ? "border-cyan bg-white/85 shadow-[0_14px_30px_rgba(19,35,58,0.08)]"
-                  : "border-graphite/10 bg-white/65 hover:border-cyan/40 hover:bg-white/85"
-              }`}
-            >
-              <Image src={image} alt={`${product.name} gallery ${index + 1}`} fill className="object-contain p-1.5" />
-            </button>
-          ))}
-        </div>
-
-        <div className="group order-1 relative aspect-square overflow-hidden rounded-[32px] border border-graphite/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(246,243,236,0.94))] shadow-[0_18px_48px_rgba(19,35,58,0.06)] lg:order-2">
-          <Image
-            src={activeImage}
-            alt={product.name}
-            fill
-            className="object-contain p-3 transition duration-500 group-hover:scale-[1.03] sm:p-4 lg:p-5"
-            sizes="(max-width: 1280px) 100vw, 50vw"
-          />
-        </div>
-      </div>
-
-      <div className="xl:pt-6">
-        <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">Product Detail</p>
+    <div className="mx-auto max-w-4xl xl:pt-6">
         <h1 className="font-[var(--font-display)] text-4xl text-platinum sm:text-5xl">{product.name}</h1>
 
         <div className="mt-7 rounded-[32px] border border-graphite/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.97),rgba(248,246,240,0.94))] p-6 shadow-[0_22px_60px_rgba(19,35,58,0.06)] sm:p-7">
@@ -282,7 +248,6 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </Tabs.Content>
 
         </Tabs.Root>
-      </div>
     </div>
   );
 }
