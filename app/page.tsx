@@ -31,30 +31,30 @@ const consultingFeatures = [
 export default function HomePage() {
   return (
     <main>
-      <section className="shell pb-20 pt-14 lg:pt-24">
+      <section className="shell pb-16 pt-10 sm:pb-20 sm:pt-14 lg:pt-24">
         <div>
           <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">America First Labs</p>
-          <h1 className="mt-6 max-w-4xl font-[var(--font-display)] text-5xl leading-[0.92] text-platinum md:text-7xl">
+          <h1 className="mt-5 max-w-4xl font-[var(--font-display)] text-4xl leading-[0.94] text-platinum sm:mt-6 sm:text-5xl md:text-7xl">
             The Leader of Peptides
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-platinum/72">
+          <p className="mt-5 max-w-3xl text-base leading-7 text-platinum/72 sm:mt-6 sm:text-lg sm:leading-8">
             America First Labs specializes in the synthesis of highly purified peptides, proteins, and amino acid derivatives for scientific research and development.
           </p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Link href="/collections" className="button-primary">
+          <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
+            <Link href="/collections" className="button-primary w-full sm:w-auto">
               See Catalog
             </Link>
-            <Link href="/coa" className="button-secondary">
+            <Link href="/coa" className="button-secondary w-full sm:w-auto">
               Quality Program
             </Link>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
             {[
               "3rd Party Tested",
               "Free Shipping On Orders $200+",
               "Scientific Research Use Only"
             ].map((badge) => (
-              <div key={badge} className="rounded-full border border-graphite/10 bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.24em] text-platinum/74">
+              <div key={badge} className="rounded-full border border-graphite/10 bg-white/80 px-3 py-2 text-[10px] uppercase tracking-[0.18em] text-platinum/74 sm:px-4 sm:text-xs sm:tracking-[0.24em]">
                 {badge}
               </div>
             ))}
@@ -62,26 +62,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="shell py-20">
+      <section className="shell py-14 sm:py-20">
         <div>
           <div>
             <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">Scientific Research Use</p>
-            <h2 className="mt-4 text-4xl font-semibold text-platinum md:text-5xl">Buy Peptides for Scientific Research and Development</h2>
-            <p className="mt-6 text-base leading-8 text-platinum/72">
+            <h2 className="mt-4 text-3xl font-semibold text-platinum sm:text-4xl md:text-5xl">Buy Peptides for Scientific Research and Development</h2>
+            <p className="mt-5 text-sm leading-7 text-platinum/72 sm:mt-6 sm:text-base sm:leading-8">
               America First Labs employs state-of-the-art automated and manual peptide synthesizers, along with advanced solution and solid-phase peptide synthetic technology to deliver high quality peptides and proteins with a purity-focused process.
             </p>
-            <p className="mt-5 text-base leading-8 text-platinum/72">
+            <p className="mt-4 text-sm leading-7 text-platinum/72 sm:mt-5 sm:text-base sm:leading-8">
               From synthesis through packaging and delivery, each stage follows strict quality control standards. Comprehensive testing in the in-house analytical laboratory verifies sequential fingerprinting with precision and consistency before products reach customers.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="shell py-20">
-        <div className="mb-10 text-center">
-          <h2 className="text-4xl font-semibold text-platinum md:text-5xl">Best Sellers</h2>
+      <section className="shell py-14 sm:py-20">
+        <div className="mb-8 text-center sm:mb-10">
+          <h2 className="text-3xl font-semibold text-platinum sm:text-4xl md:text-5xl">Best Sellers</h2>
         </div>
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-4">
           {bestSellers.map((product) => (
             <article key={product.id} className="group panel overflow-hidden">
               <div className="relative aspect-[4/4.8] overflow-hidden bg-white/[0.03]">
@@ -101,8 +101,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="shell py-12">
-        <div className="grid gap-6 lg:grid-cols-3">
+      <section className="shell py-10 sm:py-12">
+        <div className="grid gap-5 sm:gap-6 lg:grid-cols-3">
           {[
             {
               title: "Third Party Verified",
@@ -132,12 +132,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="shell py-20">
-        <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
+      <section className="shell py-14 sm:py-20">
+        <div className="grid gap-6 sm:gap-8 lg:grid-cols-[0.92fr_1.08fr]">
           <div>
             <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">Quality Program</p>
-            <h2 className="mt-4 text-4xl font-semibold text-platinum md:text-5xl">America First Labs Quality Assurance Program</h2>
-            <p className="mt-6 text-base leading-8 text-platinum/72">
+            <h2 className="mt-4 text-3xl font-semibold text-platinum sm:text-4xl md:text-5xl">America First Labs Quality Assurance Program</h2>
+            <p className="mt-5 text-sm leading-7 text-platinum/72 sm:mt-6 sm:text-base sm:leading-8">
               At America First Labs, quality is the standard. The quality assurance program reflects a commitment to consistent purity, precision, and reliability across every research product in the catalog.
             </p>
             <Link href="/coa" className="button-primary mt-8">
@@ -164,20 +164,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="shell py-20">
-        <div className="panel overflow-hidden p-8 md:p-10">
-          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+      <section className="shell py-14 sm:py-20">
+        <div className="panel overflow-hidden p-6 sm:p-8 md:p-10">
+          <div className="grid gap-8 sm:gap-10 lg:grid-cols-[0.95fr_1.05fr]">
             <div>
               <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">Longevity MD Consulting</p>
-              <h2 className="mt-4 text-4xl font-semibold text-platinum md:text-5xl">Physician-Guided Wellness and Longevity Support</h2>
-              <p className="mt-6 text-base leading-8 text-platinum/72">
+              <h2 className="mt-4 text-3xl font-semibold text-platinum sm:text-4xl md:text-5xl">Physician-Guided Wellness and Longevity Support</h2>
+              <p className="mt-5 text-sm leading-7 text-platinum/72 sm:mt-6 sm:text-base sm:leading-8">
                 Connect with America First Labs for one-on-one consulting focused on recovery, hormone support, performance, metabolic health, and long-term longevity strategy.
               </p>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <Link href="/consulting" className="button-primary">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+                <Link href="/consulting" className="button-primary w-full sm:w-auto">
                   Book a $99 Consultation
                 </Link>
-                <Link href="/checkout" className="button-secondary">
+                <Link href="/checkout" className="button-secondary w-full sm:w-auto">
                   View Booking Checkout
                 </Link>
               </div>
@@ -204,11 +204,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="shell py-16">
-        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+      <section className="shell py-12 sm:py-16">
+        <div className="grid gap-6 sm:gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">FAQs</p>
-            <h2 className="mt-4 text-4xl font-semibold text-platinum">Frequently Asked Questions</h2>
+            <h2 className="mt-4 text-3xl font-semibold text-platinum sm:text-4xl">Frequently Asked Questions</h2>
           </div>
           <HomepageFaqPreview items={homepageFaqs} />
         </div>
