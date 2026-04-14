@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/browser";
 
 export default function AuthResetPage() {
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [status, setStatus] = useState("Enter your new password to complete the reset.");
@@ -92,7 +94,16 @@ export default function AuthResetPage() {
       const supabase = createClient();
       setIsSaving(true);
       const { error } = await supabase.auth.updateUser({ password });
-      setStatus(error ? error.message : "Password updated. You can now log in.");
+      if (error) {
+        setStatus(error.message);
+        return;
+      }
+
+      setStatus("Password updated. Signing you in and sending you home...");
+      setTimeout(() => {
+        router.replace("/");
+        router.refresh();
+      }, 900);
     } catch {
       setStatus("Unable to update password right now.");
     } finally {
@@ -127,7 +138,7 @@ export default function AuthResetPage() {
           />
         </div>
         <button type="submit" disabled={isSaving} className="button-primary mt-6 w-full disabled:opacity-60">
-          {isSaving ? "Saving..." : isReady ? "Update Password" : "Preparing Reset Link..."}
+          {isSaving ? "Confirming..." : isReady ? "Confirm Password Reset" : "Preparing Reset Link..."}
         </button>
         <p className="mt-4 text-sm text-platinum/55">{status}</p>
       </form>
