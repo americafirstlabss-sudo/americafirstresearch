@@ -73,7 +73,6 @@ export default function ConsultingPage() {
           </div>
         </div>
         <div className="panel p-8">
-          <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">Who It&apos;s For</p>
           <h2 className="mt-4 text-4xl font-semibold text-platinum">Who It&apos;s For</h2>
           <p className="mt-6 text-base leading-8 text-platinum/72">
             Built for adults seeking physician-guided support around optimization, preventive care, wellness strategy, and a more structured approach to long-term health.
@@ -86,7 +85,6 @@ export default function ConsultingPage() {
 
       <section className="mt-20">
         <div className="mb-8">
-          <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">How It Works</p>
           <h2 className="mt-4 text-4xl font-semibold text-platinum">How It Works</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
@@ -132,7 +130,6 @@ export default function ConsultingPage() {
       <section className="mt-20 panel p-8 md:p-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_0.75fr]">
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">Consult Format</p>
             <h2 className="mt-4 text-4xl font-semibold text-platinum">Consult Format</h2>
             <p className="mt-6 text-base leading-8 text-platinum/72">
               Structured telehealth-style planning session with follow-up guidance depending on the service tier.
