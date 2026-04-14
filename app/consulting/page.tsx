@@ -55,7 +55,6 @@ export default function ConsultingPage() {
 
       <section id="services" className="mt-20 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
-          <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">What This Covers</p>
           <h2 className="mt-4 text-4xl font-semibold text-platinum">What This Covers</h2>
           <div className="mt-6 space-y-4">
             {[
@@ -98,32 +97,6 @@ export default function ConsultingPage() {
               </div>
             );
           })}
-        </div>
-      </section>
-
-      <section className="mt-20 grid gap-6 lg:grid-cols-2">
-        <div className="panel p-8">
-          <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">Typical Focus Areas</p>
-          <h2 className="mt-4 text-4xl font-semibold text-platinum">Typical Focus Areas</h2>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {["Hormone support", "Fatigue", "Recovery", "Weight management", "Inflammation", "Sleep quality", "Performance"].map((item) => (
-              <div key={item} className="rounded-full border border-graphite/10 bg-white/82 px-4 py-2 text-sm text-platinum/70">
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="panel p-8">
-          <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">What To Bring</p>
-          <h2 className="mt-4 text-4xl font-semibold text-platinum">What To Bring</h2>
-          <div className="mt-6 space-y-4">
-            {["Recent labs", "Relevant medical history", "Current medications", "Supplements", "Clear list of goals"].map((item) => (
-              <div key={item} className="flex items-center gap-3 text-sm text-platinum/72">
-                <Beaker className="h-4 w-4 text-[#9c7a2b]" />
-                {item}
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
