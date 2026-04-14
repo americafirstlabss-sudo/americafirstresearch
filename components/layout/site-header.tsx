@@ -17,7 +17,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#13233a]/10 bg-[rgba(251,250,246,0.88)] backdrop-blur-xl">
-      <div className="shell flex h-20 items-center justify-between gap-3 sm:h-20 sm:gap-4">
+      <div className="shell flex h-28 items-center justify-between gap-3 sm:h-28 sm:gap-4">
         <Link href="/" className="shrink-0">
           <BrandMark />
         </Link>
@@ -29,7 +29,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
-          <button type="button" onClick={() => setMobileOpen(true)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] lg:hidden sm:hidden">
+          <button type="button" onClick={() => setMobileOpen(true)} className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] lg:hidden sm:hidden">
             <Menu className="h-4 w-4" />
           </button>
           <Link href="/search" aria-label="Search site" className="hidden h-12 w-12 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:inline-flex">
@@ -38,7 +38,7 @@ export function SiteHeader() {
           <Link href={accountHref} aria-label="Account" className="hidden h-12 w-12 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:inline-flex">
             <User className="h-5 w-5" />
           </Link>
-          <button type="button" onClick={openCart} className="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:h-12 sm:w-12">
+          <button type="button" onClick={openCart} className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:h-12 sm:w-12">
             <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
             <span className="absolute -right-1 -top-1 grid h-4 min-w-4 place-items-center rounded-full bg-[#922030] px-1 text-[9px] font-semibold text-white sm:h-5 sm:min-w-5 sm:text-[10px]">
               {count}
