@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
@@ -66,7 +67,18 @@ export function ProductDetailClient({ product }: { product: Product }) {
   ];
 
   return (
-    <div className="mx-auto max-w-4xl xl:pt-6">
+    <div className="grid gap-10 xl:grid-cols-[0.88fr_1.12fr] xl:items-start">
+      <div className="group relative aspect-square overflow-hidden rounded-[32px] border border-graphite/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(246,243,236,0.94))] shadow-[0_18px_48px_rgba(19,35,58,0.06)]">
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          className="object-contain p-3 transition duration-500 group-hover:scale-[1.03] sm:p-4 lg:p-5"
+          sizes="(max-width: 1280px) 100vw, 50vw"
+        />
+      </div>
+
+      <div className="xl:pt-6">
         <h1 className="font-[var(--font-display)] text-4xl text-platinum sm:text-5xl">{product.name}</h1>
 
         <div className="mt-7 rounded-[32px] border border-graphite/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.97),rgba(248,246,240,0.94))] p-6 shadow-[0_22px_60px_rgba(19,35,58,0.06)] sm:p-7">
@@ -248,6 +260,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </Tabs.Content>
 
         </Tabs.Root>
+      </div>
     </div>
   );
 }
