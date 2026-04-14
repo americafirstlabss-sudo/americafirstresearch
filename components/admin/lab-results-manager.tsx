@@ -1,17 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import type { CoaEntry } from "@/lib/coa";
 
-type LabResult = {
-  id: string;
-  product_name: string;
-  batch_number: string;
-  test_date?: string;
-  lab_name?: string;
-  purity?: number | null;
-  file_url: string;
-  storage_path?: string | null;
-};
+type LabResult = CoaEntry;
 
 const blankState = {
   productName: "",
@@ -140,9 +132,13 @@ export function LabResultsManager({ initialResults }: { initialResults: LabResul
                   Remove
                 </button>
               </div>
-              <a href={result.file_url} target="_blank" rel="noreferrer" className="mt-3 inline-block text-sm text-[#9c7a2b] hover:text-white">
-                Open PDF
-              </a>
+              {result.file_url ? (
+                <a href={result.file_url} target="_blank" rel="noreferrer" className="mt-3 inline-block text-sm text-[#9c7a2b] hover:text-white">
+                  Open PDF
+                </a>
+              ) : (
+                <p className="mt-3 text-sm text-white/40">No PDF linked yet</p>
+              )}
             </div>
           ))}
         </div>
