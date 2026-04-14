@@ -13,7 +13,7 @@ export function BrandMark() {
             sizes="(max-width: 640px) 96px, 96px"
           />
         </div>
-        <p className="-mt-1 text-sm font-black uppercase tracking-[0.32em] text-black sm:mt-0.5 sm:text-base sm:tracking-[0.28em]">
+        <p className="-mt-3 text-sm font-black uppercase tracking-[0.32em] text-black sm:-mt-1 sm:text-base sm:tracking-[0.28em]">
           AFL
         </p>
       </div>
