@@ -6,7 +6,7 @@ export default async function CollectionsPage() {
 
   return (
     <main className="shell py-16">
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
