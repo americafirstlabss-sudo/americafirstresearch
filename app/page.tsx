@@ -81,18 +81,18 @@ export default function HomePage() {
         <div className="mb-8 text-center sm:mb-10">
           <h2 className="text-3xl font-semibold text-platinum sm:text-4xl md:text-5xl">Best Sellers</h2>
         </div>
-        <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2 xl:grid-cols-4">
           {bestSellers.map((product) => (
             <article key={product.id} className="group panel overflow-hidden">
-              <div className="relative aspect-[4/4.8] overflow-hidden bg-white/[0.03]">
+              <div className="relative aspect-[4/4.4] overflow-hidden bg-white/[0.03] sm:aspect-[4/4.8]">
                 <Image src={product.image} alt={product.name} fill className="object-cover transition duration-700 group-hover:scale-105" />
               </div>
-              <div className="p-5">
-                <h3 className="text-xl font-semibold text-platinum">{product.name}</h3>
-                <p className="mt-2 text-sm text-platinum/68">
+              <div className="p-3 sm:p-5">
+                <h3 className="text-base font-semibold leading-tight text-platinum sm:text-xl">{product.name}</h3>
+                <p className="mt-1.5 text-xs text-platinum/68 sm:mt-2 sm:text-sm">
                   {product.slug === "ghk-cu" || product.slug === "bpc-157" ? `From $${product.price.toFixed(2)}` : `$${product.price.toFixed(2)}`}
                 </p>
-                <Link href={`/products/${product.slug}`} className="button-secondary mt-5 w-full">
+                <Link href={`/products/${product.slug}`} className="button-secondary mt-3 w-full text-xs sm:mt-5 sm:text-sm">
                   View Product
                 </Link>
               </div>
