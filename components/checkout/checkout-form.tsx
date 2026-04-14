@@ -58,7 +58,14 @@ export function CheckoutForm({
     }
 
     if (!response.ok || !data.checkoutUrl) {
-      setStatus(data.error ?? "Could not start checkout.");
+      const debugDetails =
+        data.debug && typeof data.debug === "object"
+          ? ` URL: ${String(data.debug.bankfulApiUrl ?? "n/a")} | Username: ${String(
+              data.debug.bankfulUsername ?? "n/a"
+            )} | Base URL: ${String(data.debug.appBaseUrl ?? "n/a")}`
+          : "";
+
+      setStatus(`${data.error ?? "Could not start checkout."}${debugDetails}`);
       setIsLoading(false);
       return;
     }
