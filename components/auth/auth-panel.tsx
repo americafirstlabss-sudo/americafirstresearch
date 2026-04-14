@@ -209,7 +209,6 @@ export function AuthPanel({ defaultNext = "/checkout" }: AuthPanelProps) {
           <div className="mt-8 grid gap-3">
             {[
               "Cart items stay preserved before and after login",
-              "Secure Supabase session persists across refresh",
               "Successful login returns you directly to checkout"
             ].map((item) => (
               <div key={item} className="flex items-center gap-3 rounded-2xl border border-graphite/10 bg-white/80 px-4 py-3 text-sm text-platinum/72">
