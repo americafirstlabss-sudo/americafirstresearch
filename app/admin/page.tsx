@@ -1,9 +1,10 @@
 import { AdminShell } from "@/components/admin/admin-shell";
-import { getAdminOverview } from "@/lib/admin";
-import { formatCurrency } from "@/lib/format";
+import { formatAdminOrderStatus, getAdminOverview, getRecentAdminOrders } from "@/lib/admin";
+import { formatCurrency, formatDate } from "@/lib/format";
 
 export default async function AdminPage() {
   const overview = await getAdminOverview();
+  const recentOrders = await getRecentAdminOrders();
   const metrics = [
     ["Total Sales", overview.totalSales],
     ["Orders Today", overview.ordersToday],
@@ -27,20 +28,19 @@ export default async function AdminPage() {
         <div className="panel p-6">
           <h3 className="text-xl font-semibold text-white">Recent Orders</h3>
           <div className="mt-5 space-y-4">
-            {[
-              ["#1084", "GHK-Cu + BAC Water", "$173", "Processing"],
-              ["#1083", "Precision Stack", "$329", "Paid"],
-              ["#1082", "Black Label Hoodie", "$96", "Fulfilled"]
-            ].map(([id, items, total, status]) => (
-              <div key={id} className="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+            {recentOrders.map((order) => (
+              <div key={order.id} className="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="font-medium text-white">{id}</p>
-                    <p className="mt-1 text-sm text-white/52">{items}</p>
+                    <p className="font-medium text-white">{order.id}</p>
+                    <p className="mt-1 text-sm text-white/52">{order.customer_email ?? "No customer email"}</p>
+                    <p className="mt-1 text-xs text-white/35">{formatDate(order.created_at)}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-white">{total}</p>
-                    <p className="mt-1 text-xs uppercase tracking-[0.24em] text-[#9c7a2b]">{status}</p>
+                    <p className="font-semibold text-white">{formatCurrency(Number(order.total_amount ?? 0))}</p>
+                    <p className="mt-1 text-xs uppercase tracking-[0.24em] text-[#9c7a2b]">
+                      {formatAdminOrderStatus(order.status)}
+                    </p>
                   </div>
                 </div>
               </div>

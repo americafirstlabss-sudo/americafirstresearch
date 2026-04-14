@@ -1,6 +1,27 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { products as fallbackProducts } from "@/lib/site";
 
+export function formatAdminOrderStatus(status: string | null | undefined) {
+  const normalized = (status ?? "").toLowerCase();
+
+  switch (normalized) {
+    case "paid":
+      return "Paid";
+    case "pending_payment":
+      return "Pending Payment";
+    case "pending_review":
+      return "Pending Review";
+    case "failed":
+      return "Failed";
+    case "fulfilled":
+      return "Fulfilled";
+    case "processing":
+      return "Processing";
+    default:
+      return status ? status.replace(/_/g, " ") : "Unknown";
+  }
+}
+
 export async function getAdminOverview() {
   const fallback = {
     totalSales: 84250,
@@ -48,6 +69,11 @@ export async function getAdminOrders() {
     .limit(20);
 
   return data ?? [];
+}
+
+export async function getRecentAdminOrders(limit = 3) {
+  const orders = await getAdminOrders();
+  return orders.slice(0, limit);
 }
 
 export async function getAdminCustomers() {

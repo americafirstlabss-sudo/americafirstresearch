@@ -1,6 +1,6 @@
 import { AdminShell } from "@/components/admin/admin-shell";
 import { formatCurrency, formatDate } from "@/lib/format";
-import { getAdminOrders } from "@/lib/admin";
+import { formatAdminOrderStatus, getAdminOrders } from "@/lib/admin";
 
 export default async function AdminOrdersPage() {
   const orders = await getAdminOrders();
@@ -22,7 +22,7 @@ export default async function AdminOrdersPage() {
             </div>
             <span>{order.customer_email ?? "No email"}</span>
             <span>{formatCurrency(Number(order.total_amount ?? 0))}</span>
-            <span className="uppercase tracking-[0.18em] text-[#9c7a2b]">{order.status}</span>
+            <span className="uppercase tracking-[0.18em] text-[#9c7a2b]">{formatAdminOrderStatus(order.status)}</span>
           </div>
         ))}
       </div>
