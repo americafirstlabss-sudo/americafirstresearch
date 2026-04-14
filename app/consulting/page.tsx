@@ -2,6 +2,27 @@ import { ArrowRight, Beaker, CalendarDays, ClipboardList, LineChart, ShieldCheck
 import { ConsultationForm } from "@/components/forms/consultation-form";
 
 export default function ConsultingPage() {
+  const consultingSteps = [
+    {
+      step: "Step 01",
+      title: "Initial Intake",
+      body: "Share your goals, history, symptoms, current labs, and the main outcomes you want to focus on.",
+      Icon: ClipboardList
+    },
+    {
+      step: "Step 02",
+      title: "Physician Review",
+      body: "Your biomarkers, priorities, and lifestyle factors are reviewed to shape a more personalized strategy.",
+      Icon: Stethoscope
+    },
+    {
+      step: "Step 03",
+      title: "Action Plan",
+      body: "Receive guidance on next steps, follow-up priorities, and a roadmap centered on longevity and wellness.",
+      Icon: LineChart
+    }
+  ];
+
   return (
     <main className="shell py-16">
       <section className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr]">
@@ -69,12 +90,7 @@ export default function ConsultingPage() {
           <h2 className="mt-4 text-4xl font-semibold text-platinum">How It Works</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
-          {[
-            ["Step 01", "Initial Intake", "Share your goals, history, symptoms, current labs, and the main outcomes you want to focus on.", ClipboardList],
-            ["Step 02", "Physician Review", "Your biomarkers, priorities, and lifestyle factors are reviewed to shape a more personalized strategy.", Stethoscope],
-            ["Step 03", "Action Plan", "Receive guidance on next steps, follow-up priorities, and a roadmap centered on longevity and wellness.", LineChart]
-          ].map(([step, title, body, Icon]) => {
-            const StepIcon = Icon as typeof ClipboardList;
+          {consultingSteps.map(({ step, title, body, Icon: StepIcon }) => {
             return (
               <div key={title} className="panel p-6">
                 <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-black">{step}</p>
