@@ -25,6 +25,8 @@ async function syncCustomer(payload: { authUserId: string; email: string; fullNa
 export function AuthPanel({ defaultNext = "/checkout" }: AuthPanelProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+  const authBaseUrl = siteUrl.startsWith("http") ? siteUrl.replace(/\/$/, "") : window.location.origin;
   const nextPath = useMemo(() => {
     const requested = searchParams.get("next");
     if (!requested || !requested.startsWith("/")) return defaultNext;
@@ -126,7 +128,7 @@ export function AuthPanel({ defaultNext = "/checkout" }: AuthPanelProps) {
           data: {
             full_name: registerName
           },
-          emailRedirectTo: `${window.location.origin}${nextPath}`
+          emailRedirectTo: `${authBaseUrl}${nextPath}`
         }
       });
 
@@ -183,7 +185,7 @@ export function AuthPanel({ defaultNext = "/checkout" }: AuthPanelProps) {
       const supabase = createClient();
       setLoadingMode("reset");
       const { error } = await supabase.auth.resetPasswordForEmail(loginEmail, {
-        redirectTo: `${window.location.origin}/auth/reset`
+        redirectTo: `${authBaseUrl}/auth/reset`
       });
 
       setStatus(error ? error.message : "Password reset instructions have been sent to your email.");
