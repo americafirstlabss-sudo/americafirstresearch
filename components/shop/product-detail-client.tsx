@@ -119,10 +119,10 @@ export function ProductDetailClient({ product }: { product: Product }) {
                       key={option}
                       type="button"
                       onClick={() => setSelectedOption(option)}
-                      className={`rounded-full border px-4 py-2.5 text-sm transition duration-300 ${
+                      className={`inline-flex min-h-[42px] items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition duration-300 sm:min-h-[46px] sm:px-5 sm:py-2.5 ${
                         selectedOption === option
-                          ? "border-[#922030] bg-[linear-gradient(135deg,#922030,#6d1323)] text-white shadow-[0_12px_28px_rgba(146,32,48,0.18)]"
-                          : "border-[#922030]/18 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(244,241,232,0.92))] text-[#922030] hover:border-[#922030] hover:bg-[#922030]/6 hover:text-[#922030]"
+                          ? "border-[#922030] bg-[#922030] text-white shadow-[0_10px_24px_rgba(146,32,48,0.18)]"
+                          : "border-[#922030]/20 bg-white text-[#922030] hover:border-[#922030] hover:bg-[#922030]/6"
                       }`}
                     >
                       {option}
