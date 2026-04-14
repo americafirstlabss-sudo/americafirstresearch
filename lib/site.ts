@@ -183,7 +183,7 @@ export const products: Product[] = [
     slug: "cjc-1295-no-dac",
     name: "CJC-1295 NO DAC",
     price: 38,
-    image: catalogImages.vialC,
+    image: "/cjc-1295-no-dac.png",
     dosage: "2mg / 5mg research vial",
     sizeOptions: ["Default"],
     purity: "99.0%",

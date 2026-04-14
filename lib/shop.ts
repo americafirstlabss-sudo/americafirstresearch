@@ -31,6 +31,7 @@ function mapSupabaseProduct(row: Record<string, unknown>): Product {
   const slug = String(row.slug ?? row.name).toLowerCase().replace(/\s+/g, "-");
   const seededProduct = products.find((product) => product.slug === slug);
   const rawPrice = Number(row.price ?? 0);
+  const imageOverride = slug === "cjc-1295-no-dac" ? "/cjc-1295-no-dac.png" : null;
 
   return {
     id: String(row.id),
@@ -40,11 +41,11 @@ function mapSupabaseProduct(row: Record<string, unknown>): Product {
     kind: (row.kind as Product["kind"]) ?? "compound",
     price: rawPrice > 0 ? rawPrice : (seededProduct?.price ?? 0),
     compareAtPrice: row.compare_at_price ? Number(row.compare_at_price) : seededProduct?.compareAtPrice,
-    image: String(row.image_url ?? seededProduct?.image ?? products[0].image),
+    image: String(imageOverride ?? row.image_url ?? seededProduct?.image ?? products[0].image),
     gallery:
       Array.isArray(row.gallery) && row.gallery.length
         ? (row.gallery as string[])
-        : [String(row.image_url ?? seededProduct?.image ?? products[0].image)],
+        : [String(imageOverride ?? row.image_url ?? seededProduct?.image ?? products[0].image)],
     shortSummary: String(row.short_summary ?? "Premium research product."),
     description: String(row.description ?? "Premium research product."),
     dosage: String(row.dosage ?? "Research grade"),
