@@ -49,7 +49,7 @@ export function SiteHeader() {
           </button>
         </div>
       </div>
-      <div className="border-t border-[#13233a]/8 bg-[linear-gradient(90deg,rgba(111,136,184,0.08),rgba(146,32,48,0.06),rgba(156,122,43,0.08))] px-4 py-2 text-center text-[9px] uppercase tracking-[0.28em] text-[#13233a]/48 sm:text-[11px] sm:tracking-[0.35em]">
+      <div className="border-t border-[#13233a]/8 bg-[linear-gradient(90deg,rgba(111,136,184,0.08),rgba(146,32,48,0.06),rgba(156,122,43,0.08))] px-4 py-1.5 text-center text-[8px] uppercase tracking-[0.22em] text-[#922030]/60 sm:text-[10px] sm:tracking-[0.28em]">
         For research purposes only. Not for human consumption.
       </div>
 
