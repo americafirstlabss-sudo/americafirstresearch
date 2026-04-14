@@ -17,8 +17,8 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#13233a]/10 bg-[rgba(251,250,246,0.88)] backdrop-blur-xl">
-      <div className="shell flex h-16 items-center justify-between gap-3 sm:h-20 sm:gap-4">
-        <Link href="/" className="min-w-0">
+      <div className="shell flex h-16 items-center justify-between gap-2 sm:h-20 sm:gap-4">
+        <Link href="/" className="min-w-0 flex-1 lg:flex-none">
           <BrandMark />
         </Link>
         <nav className="hidden items-center gap-7 lg:flex">
@@ -28,27 +28,26 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-2 sm:gap-3">
-          <Link href="/collections" className="button-secondary hidden sm:inline-flex">See Catalog</Link>
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
           <Link href="/search" aria-label="Search site" className="hidden h-12 w-12 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:inline-flex">
             <Search className="h-5 w-5" />
           </Link>
           <Link href={accountHref} aria-label="Account" className="hidden h-12 w-12 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:inline-flex">
             <User className="h-5 w-5" />
           </Link>
-          <Link href="/search" aria-label="Search site" className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:hidden">
+          <Link href="/search" aria-label="Search site" className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:hidden">
             <Search className="h-4 w-4" />
           </Link>
-          <Link href={accountHref} aria-label="Account" className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:hidden">
+          <Link href={accountHref} aria-label="Account" className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:hidden">
             <User className="h-4 w-4" />
           </Link>
-          <button type="button" onClick={openCart} className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:h-12 sm:w-12">
-            <ShoppingBag className="h-5 w-5" />
-            <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-[#922030] px-1 text-[10px] font-semibold text-white">
+          <button type="button" onClick={openCart} className="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] sm:h-12 sm:w-12">
+            <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="absolute -right-1 -top-1 grid h-4 min-w-4 place-items-center rounded-full bg-[#922030] px-1 text-[9px] font-semibold text-white sm:h-5 sm:min-w-5 sm:text-[10px]">
               {count}
             </span>
           </button>
-          <button type="button" onClick={() => setMobileOpen(true)} className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] lg:hidden sm:h-12 sm:w-12">
+          <button type="button" onClick={() => setMobileOpen(true)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#13233a]/12 bg-white/80 text-[#13233a] lg:hidden sm:h-12 sm:w-12">
             <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </div>
@@ -68,9 +67,6 @@ export function SiteHeader() {
               </Dialog.Close>
             </div>
             <nav className="mt-10 grid gap-3">
-              <Link href="/search" onClick={() => setMobileOpen(false)} className="rounded-2xl border border-[#13233a]/10 bg-white/70 px-4 py-4 text-sm text-[#13233a]/78 transition hover:border-gold/40 hover:text-[#922030]">
-                Search Site
-              </Link>
               <Link href={accountHref} onClick={() => setMobileOpen(false)} className="rounded-2xl border border-[#13233a]/10 bg-white/70 px-4 py-4 text-sm text-[#13233a]/78 transition hover:border-gold/40 hover:text-[#922030]">
                 {user ? "My Account" : "Login / Register"}
               </Link>
@@ -80,9 +76,6 @@ export function SiteHeader() {
                 </Link>
               ))}
             </nav>
-            <Link href="/collections" onClick={() => setMobileOpen(false)} className="button-primary mt-6 w-full">
-              See Catalog
-            </Link>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
