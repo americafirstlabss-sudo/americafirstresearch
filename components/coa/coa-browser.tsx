@@ -8,6 +8,24 @@ import { formatDate } from "@/lib/format";
 import { CoaEntry } from "@/lib/coa";
 
 export function CoaBrowser({ entries }: { entries: CoaEntry[] }) {
+  const trustCards = [
+    {
+      title: "Verified Testing",
+      body: "Every batch is independently tested and documented to reinforce scientific credibility.",
+      Icon: ShieldCheck
+    },
+    {
+      title: "Batch Traceability",
+      body: "Structured product and batch organization keeps every COA easy to review and verify.",
+      Icon: FileCheck2
+    },
+    {
+      title: "Quality Assurance",
+      body: "Lab documentation, purity values, and batch-level reporting support full transparency.",
+      Icon: FlaskConical
+    }
+  ];
+
   const [query, setQuery] = useState("");
   const [productFilter, setProductFilter] = useState("All");
   const [batchFilter, setBatchFilter] = useState("All");
@@ -110,14 +128,9 @@ export function CoaBrowser({ entries }: { entries: CoaEntry[] }) {
       )}
 
       <section className="mt-12 grid gap-6 md:grid-cols-3">
-        {[
-          ["Verified Testing", "Every batch is independently tested and documented to reinforce scientific credibility.", ShieldCheck],
-          ["Batch Traceability", "Structured product and batch organization keeps every COA easy to review and verify.", FileCheck2],
-          ["Quality Assurance", "Lab documentation, purity values, and batch-level reporting support full transparency.", FlaskConical]
-        ].map(([title, body, Icon]) => {
-          const ItemIcon = Icon as typeof ShieldCheck;
-            return (
-              <div key={title} className="panel p-6">
+        {trustCards.map(({ title, body, Icon: ItemIcon }) => {
+          return (
+            <div key={title} className="panel p-6">
               <ItemIcon className="h-7 w-7 text-[#9c7a2b]" />
               <h2 className="mt-5 text-2xl font-semibold text-platinum">{title}</h2>
               <p className="mt-4 text-sm leading-7 text-platinum/68">{body}</p>
