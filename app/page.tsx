@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Beaker, Headphones, Microscope, ShieldCheck, Stethoscope, TimerReset, Truck } from "lucide-react";
@@ -28,7 +29,23 @@ const consultingFeatures = [
   }
 ];
 
-export default function HomePage() {
+export default function HomePage({
+  searchParams
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
+  const code = typeof searchParams?.code === "string" ? searchParams.code : null;
+  const tokenHash = typeof searchParams?.token_hash === "string" ? searchParams.token_hash : null;
+  const type = typeof searchParams?.type === "string" ? searchParams.type : null;
+
+  if (code || tokenHash || type === "recovery") {
+    const destination = new URLSearchParams();
+    if (code) destination.set("code", code);
+    if (tokenHash) destination.set("token_hash", tokenHash);
+    if (type) destination.set("type", type);
+    redirect(`/auth/reset?${destination.toString()}`);
+  }
+
   return (
     <main>
       <section className="shell pb-16 pt-10 sm:pb-20 sm:pt-14 lg:pt-24">
@@ -81,18 +98,18 @@ export default function HomePage() {
         <div className="mb-8 text-center sm:mb-10">
           <h2 className="text-3xl font-semibold text-platinum sm:text-4xl md:text-5xl">Best Sellers</h2>
         </div>
-        <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-2 xl:grid-cols-4">
           {bestSellers.map((product) => (
             <article key={product.id} className="group panel overflow-hidden">
-              <div className="relative aspect-[4/4.4] overflow-hidden bg-white/[0.03] sm:aspect-[4/4.8]">
+              <div className="relative aspect-[4/3.3] overflow-hidden bg-white/[0.03] sm:aspect-[4/4.8]">
                 <Image src={product.image} alt={product.name} fill className="object-cover transition duration-700 group-hover:scale-105" />
               </div>
-              <div className="p-3 sm:p-5">
-                <h3 className="text-base font-semibold leading-tight text-platinum sm:text-xl">{product.name}</h3>
-                <p className="mt-1.5 text-xs text-platinum/68 sm:mt-2 sm:text-sm">
+              <div className="p-2.5 sm:p-5">
+                <h3 className="text-sm font-semibold leading-tight text-platinum sm:text-xl">{product.name}</h3>
+                <p className="mt-1 text-[11px] text-platinum/68 sm:mt-2 sm:text-sm">
                   {product.slug === "ghk-cu" || product.slug === "bpc-157" ? `From $${product.price.toFixed(2)}` : `$${product.price.toFixed(2)}`}
                 </p>
-                <Link href={`/products/${product.slug}`} className="button-secondary mt-3 w-full text-xs sm:mt-5 sm:text-sm">
+                <Link href={`/products/${product.slug}`} className="button-secondary mt-2 w-full px-3 py-2 text-[11px] sm:mt-5 sm:px-6 sm:py-3 sm:text-sm">
                   View Product
                 </Link>
               </div>
@@ -177,7 +194,7 @@ export default function HomePage() {
                 <Link href="/consulting" className="button-primary w-full sm:w-auto">
                   Book a $99 Consultation
                 </Link>
-                <Link href="/checkout" className="button-secondary w-full sm:w-auto">
+                <Link href="/consulting#booking" className="button-secondary w-full sm:w-auto">
                   View Booking Checkout
                 </Link>
               </div>
